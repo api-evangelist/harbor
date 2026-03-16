@@ -1,33 +1,40 @@
 aid: harbor
 name: Harbor
 description: >-
-  Do you have a superfan strategy? Harbor is the no-code tool that lets you
-  build an owned community platform where superfans can engage with your brand
-  and earn rewards. 
+  Harbor is a no-code tool that lets brands build an owned community platform
+  where superfans can engage with the brand and earn rewards. Harbor enables
+  businesses to create superfan strategies through customizable community
+  platforms with engagement and loyalty features.
 type: Index
-position: Consumer
-access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - API
-created: '2025-02-17'
-modified: '2025-02-17'
+  - Community
+  - Loyalty
+  - Superfans
+  - Engagement
 url: >-
   https://raw.githubusercontent.com/api-evangelist/harbor/refs/heads/main/apis.yml
+created: '2025-02-17'
+modified: '2026-03-16'
 specificationVersion: '0.19'
 apis:
   - aid: harbor:harbor
-    name: Harbor
+    name: Harbor API
     description: >-
-      Do you have a superfan strategy? Harbor is the no-code tool that lets you
-      build an owned community platform where superfans can engage with your
-      brand and earn rewards. 
-    humanURL: ' https://www.harbor.gg/'
+      The Harbor API enables programmatic access to the Harbor community
+      platform, allowing brands to manage their superfan community, rewards
+      programs, and engagement features.
+    humanURL: https://www.harbor.gg/
     tags:
-      - API
+      - Community
+      - Loyalty
+      - Engagement
     properties:
       - type: Documentation
-        url: ' https://www.harbor.gg/'
+        url: https://www.harbor.gg/
+common:
+  - type: Website
+    url: https://www.harbor.gg/
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
