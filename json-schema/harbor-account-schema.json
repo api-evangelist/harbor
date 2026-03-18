@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.harbor.gg/schemas/harbor/account.json",
+  "title": "Harbor Account",
+  "description": "A Harbor community platform account representing a superfan user with linked identities, resources, and guild memberships.",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique account identifier"
+    },
+    "username": {
+      "type": "string",
+      "maxLength": 64,
+      "description": "Display name shown in the community"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Primary email address for the account"
+    },
+    "identities": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Identity" },
+      "description": "External platform identities linked to this account"
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": { "type": "number" },
+      "description": "Map of resource type names to current totals (e.g., points, badges)"
+    },
+    "guilds": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/GuildMembership" },
+      "description": "Guild memberships for this account"
+    },
+    "strikes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/AccountStrike" },
+      "description": "Moderation strike records"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the account was created"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the last account update"
+    }
+  },
+  "$defs": {
+    "Identity": {
+      "type": "object",
+      "required": ["id", "type", "externalId"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identity record identifier"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["discord", "steam", "ethereum", "aptos", "beamable", "youtube", "twitch"],
+          "description": "Identity provider type"
+        },
+        "externalId": {
+          "type": "string",
+          "description": "User identifier from the external platform"
+        },
+        "externalUsername": {
+          "type": "string",
+          "description": "Display name on the external platform"
+        },
+        "linkedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this identity was linked to the account"
+        }
+      }
+    },
+    "GuildMembership": {
+      "type": "object",
+      "required": ["guildId"],
+      "properties": {
+        "guildId": {
+          "type": "string",
+          "description": "Guild identifier"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["member", "owner"],
+          "description": "Member's role within the guild"
+        },
+        "joinedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the account joined the guild"
+        }
+      }
+    },
+    "AccountStrike": {
+      "type": "object",
+      "required": ["id", "accountId"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Strike record identifier"
+        },
+        "accountId": {
+          "type": "string",
+          "description": "Account that received the strike"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for the moderation action"
+        },
+        "issuedBy": {
+          "type": "string",
+          "description": "Admin account ID that issued the strike"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the strike was issued"
+        }
+      }
+    }
+  }
+}

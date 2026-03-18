@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/harbor/blob/main/json-schema/harbor-member-schema.json",
+  "title": "Harbor Community Member",
+  "description": "A community member in the Harbor platform representing a superfan who has joined a brand community, earns points through challenges and engagement, and can redeem rewards from the loyalty catalog.",
+  "type": "object",
+  "required": ["id", "externalId", "communityId", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Harbor-assigned identifier for this community member."
+    },
+    "externalId": {
+      "type": "string",
+      "description": "The brand's own user identifier used to link this Harbor member to the brand's platform account."
+    },
+    "communityId": {
+      "type": "string",
+      "description": "Identifier of the Harbor community this member belongs to."
+    },
+    "displayName": {
+      "type": "string",
+      "description": "The member's display name shown publicly in the community.",
+      "maxLength": 100
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "The member's email address."
+    },
+    "pointsBalance": {
+      "type": "integer",
+      "description": "The member's current point balance available for reward redemption.",
+      "minimum": 0
+    },
+    "totalPointsEarned": {
+      "type": "integer",
+      "description": "Lifetime total points earned by this member, used for tier qualification.",
+      "minimum": 0
+    },
+    "tier": {
+      "$ref": "#/$defs/Tier"
+    },
+    "referralCode": {
+      "type": "string",
+      "description": "Unique referral code this member can share to earn referral bonus points when new members join using it."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current membership status.",
+      "enum": ["active", "inactive", "banned"]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional brand-defined metadata stored with this member record.",
+      "additionalProperties": true
+    },
+    "joinedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this member joined the community."
+    },
+    "lastActiveAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the member's most recent activity."
+    }
+  },
+  "$defs": {
+    "Tier": {
+      "type": "object",
+      "title": "Tier",
+      "description": "A loyalty tier that members progress through as they earn lifetime points.",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique tier identifier."
+        },
+        "name": {
+          "type": "string",
+          "description": "Tier display name shown to members (e.g., Bronze, Silver, Gold, Platinum)."
+        },
+        "pointsRequired": {
+          "type": "integer",
+          "description": "Minimum lifetime points required to qualify for this tier.",
+          "minimum": 0
+        },
+        "benefits": {
+          "type": "array",
+          "description": "List of benefit descriptions associated with this tier.",
+          "items": {
+            "type": "string",
+            "description": "Human-readable benefit description."
+          }
+        }
+      }
+    },
+    "PointTransaction": {
+      "type": "object",
+      "title": "PointTransaction",
+      "description": "A single point earning or spending transaction for a community member.",
+      "required": ["type", "points", "description", "createdAt"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique transaction identifier."
+        },
+        "memberId": {
+          "type": "string",
+          "description": "Member identifier this transaction belongs to."
+        },
+        "type": {
+          "type": "string",
+          "description": "Transaction type indicating whether points were earned or spent.",
+          "enum": ["earn", "spend", "adjustment", "expiry"]
+        },
+        "points": {
+          "type": "integer",
+          "description": "Number of points in this transaction. Positive for earnings, negative for spending."
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of the transaction source."
+        },
+        "challengeId": {
+          "type": "string",
+          "description": "Reference to the challenge that triggered this transaction, if applicable."
+        },
+        "redemptionId": {
+          "type": "string",
+          "description": "Reference to the redemption that triggered this transaction, if applicable."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the transaction."
+        }
+      }
+    }
+  }
+}

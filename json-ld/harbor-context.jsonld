@@ -1,0 +1,201 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "harbor": "https://api.harbor.gg/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "loyalty": "https://w3id.org/loyalty#",
+
+    "Community": {
+      "@id": "schema:Organization",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "slug": "schema:alternateName",
+        "description": "schema:description",
+        "logoUrl": {
+          "@id": "schema:logo",
+          "@type": "@id"
+        },
+        "primaryColor": "schema:color",
+        "memberCount": "schema:numberOfEmployees",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "tiers": {
+          "@id": "harbor:tiers",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Member": {
+      "@id": "schema:Person",
+      "@context": {
+        "id": "schema:identifier",
+        "externalId": {
+          "@id": "schema:sameAs",
+          "@type": "xsd:string"
+        },
+        "displayName": "schema:name",
+        "email": "schema:email",
+        "pointsBalance": {
+          "@id": "loyalty:pointBalance",
+          "@type": "xsd:integer"
+        },
+        "totalPointsEarned": {
+          "@id": "loyalty:totalPointsEarned",
+          "@type": "xsd:integer"
+        },
+        "referralCode": {
+          "@id": "harbor:referralCode",
+          "@type": "xsd:string"
+        },
+        "status": "schema:additionalType",
+        "joinedAt": {
+          "@id": "schema:startDate",
+          "@type": "xsd:dateTime"
+        },
+        "lastActiveAt": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "tier": "harbor:tier",
+        "metadata": "schema:additionalProperty"
+      }
+    },
+
+    "Tier": {
+      "@id": "loyalty:Tier",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "pointsRequired": {
+          "@id": "loyalty:pointsRequired",
+          "@type": "xsd:integer"
+        },
+        "benefits": {
+          "@id": "schema:featureList",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Challenge": {
+      "@id": "schema:Action",
+      "@context": {
+        "id": "schema:identifier",
+        "title": "schema:name",
+        "description": "schema:description",
+        "points": {
+          "@id": "loyalty:pointValue",
+          "@type": "xsd:integer"
+        },
+        "actionType": "schema:additionalType",
+        "repeatable": {
+          "@id": "harbor:repeatable",
+          "@type": "xsd:boolean"
+        },
+        "status": "schema:actionStatus",
+        "startsAt": {
+          "@id": "schema:startDate",
+          "@type": "xsd:dateTime"
+        },
+        "endsAt": {
+          "@id": "schema:endDate",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Reward": {
+      "@id": "schema:Offer",
+      "@context": {
+        "id": "schema:identifier",
+        "title": "schema:name",
+        "description": "schema:description",
+        "pointCost": {
+          "@id": "loyalty:pointCost",
+          "@type": "xsd:integer"
+        },
+        "type": "schema:category",
+        "status": "schema:availability",
+        "quantity": {
+          "@id": "schema:inventoryLevel",
+          "@type": "xsd:integer"
+        },
+        "imageUrl": {
+          "@id": "schema:image",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "Redemption": {
+      "@id": "schema:Order",
+      "@context": {
+        "id": "schema:identifier",
+        "memberId": {
+          "@id": "schema:customer",
+          "@type": "xsd:string"
+        },
+        "rewardId": {
+          "@id": "schema:orderedItem",
+          "@type": "xsd:string"
+        },
+        "pointsSpent": {
+          "@id": "loyalty:pointsRedeemed",
+          "@type": "xsd:integer"
+        },
+        "status": "schema:orderStatus",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "LeaderboardEntry": {
+      "@id": "schema:ListItem",
+      "@context": {
+        "rank": {
+          "@id": "schema:position",
+          "@type": "xsd:integer"
+        },
+        "memberId": "schema:identifier",
+        "displayName": "schema:name",
+        "points": {
+          "@id": "loyalty:pointBalance",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "PointTransaction": {
+      "@id": "schema:MonetaryTransaction",
+      "@context": {
+        "id": "schema:identifier",
+        "memberId": {
+          "@id": "schema:participant",
+          "@type": "xsd:string"
+        },
+        "type": "schema:additionalType",
+        "points": {
+          "@id": "loyalty:pointAmount",
+          "@type": "xsd:integer"
+        },
+        "description": "schema:description",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}
