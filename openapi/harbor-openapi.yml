@@ -21,31 +21,28 @@ servers:
   - url: https://api.harbor.gg/v1
     description: Harbor API Production Server
 tags:
-  - name: Members
-    description: >-
-      Operations for managing community members, their profiles, point
-      balances, and tier status.
   - name: Challenges
     description: >-
       Operations for managing challenges that members complete to earn
       points and rewards.
-  - name: Rewards
+  - name: Communities
     description: >-
-      Operations for managing the rewards catalog that members can
-      redeem with earned points.
-  - name: Redemptions
-    description: >-
-      Operations for managing reward redemption requests from members.
+      Operations for managing community configuration and settings.
   - name: Leaderboards
     description: >-
       Operations for retrieving leaderboard rankings of community members
       by points or other engagement metrics.
-  - name: Events
+  - name: Members
     description: >-
-      Operations for managing community events and activities.
-  - name: Communities
+      Operations for managing community members, their profiles, point
+      balances, and tier status.
+  - name: Redemptions
     description: >-
-      Operations for managing community configuration and settings.
+      Operations for managing reward redemption requests from members.
+  - name: Rewards
+    description: >-
+      Operations for managing the rewards catalog that members can
+      redeem with earned points.
 security:
   - bearerAuth: []
 paths:

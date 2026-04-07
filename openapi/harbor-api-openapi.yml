@@ -21,24 +21,22 @@ servers:
 tags:
   - name: Accounts
     description: Account retrieval and identity management
-  - name: Notifications
-    description: User notifications and web push subscriptions
-  - name: User Management
-    description: Admin tools for managing users, strikes, and segments
-  - name: Guilds
-    description: Guild creation, membership, and management
   - name: Analytics
     description: Dashboard analytics including Discord, Steam, and App Store data
   - name: Authentication
     description: Login and registration via Beamable, email, and blockchain
+  - name: General
+    description: General utility operations
+  - name: Guilds
+    description: Guild creation, membership, and management
+  - name: Notifications
+    description: User notifications and web push subscriptions
   - name: OAuth
     description: OAuth flows for third-party integrations
   - name: Resources
     description: Badge, banner, and NFR resource management
-  - name: Onboarding
-    description: Onboarding step configuration and retrieval
-  - name: General
-    description: General utility operations
+  - name: User Management
+    description: Admin tools for managing users, strikes, and segments
 security:
   - bearerAuth: []
 paths:

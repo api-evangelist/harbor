@@ -9,9 +9,9 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Community
+  - Engagement
   - Loyalty
   - Superfans
-  - Engagement
 url: >-
   https://raw.githubusercontent.com/api-evangelist/harbor/refs/heads/main/apis.yml
 created: '2025-02-17'
@@ -27,8 +27,8 @@ apis:
     humanURL: https://api.harbor.gg/
     tags:
       - Community
-      - Loyalty
       - Engagement
+      - Loyalty
     properties:
       - type: Documentation
         url: https://api.harbor.gg/
