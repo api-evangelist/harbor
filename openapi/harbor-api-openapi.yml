@@ -45,7 +45,7 @@ paths:
   /db/account/get:
     post:
       operationId: getAccount
-      summary: Get account by ID
+      summary: Harbor Get account by ID
       description: >-
         Retrieves a single account record by its accountId from the database.
       tags:
@@ -70,7 +70,7 @@ paths:
   /db/account/resource/sum:
     post:
       operationId: getAccountResourceSum
-      summary: Get account resource totals
+      summary: Harbor Get account resource totals
       description: >-
         Returns the summed resource totals for a given account.
       tags:
@@ -95,7 +95,7 @@ paths:
   /webapp/shared/identities/get:
     post:
       operationId: getAccountIdentities
-      summary: Get account identities
+      summary: Harbor Get account identities
       description: >-
         Fetches all linked identities (social, blockchain, platform) for an account.
       tags:
@@ -120,7 +120,7 @@ paths:
   /webapp/shared/identities/clear:
     post:
       operationId: clearAccountIdentities
-      summary: Clear account identities
+      summary: Harbor Clear account identities
       description: >-
         Removes all linked identities from an account.
       tags:
@@ -139,7 +139,7 @@ paths:
   /external/account/upsert:
     post:
       operationId: upsertAccount
-      summary: Create or update account
+      summary: Harbor Create or update account
       description: >-
         Creates a new account or updates an existing one based on the provided
         external identifier.
@@ -165,7 +165,7 @@ paths:
   /webapp/notifications/list:
     post:
       operationId: listNotifications
-      summary: List account notifications
+      summary: Harbor List account notifications
       description: >-
         Returns a paginated list of notifications for the specified account.
       tags:
@@ -188,7 +188,7 @@ paths:
   /webapp/notifications/web-push/account-subscribe:
     post:
       operationId: subscribeWebPush
-      summary: Subscribe to web push notifications
+      summary: Harbor Subscribe to web push notifications
       description: >-
         Registers a browser push subscription for the account to receive
         web push notifications.
@@ -210,7 +210,7 @@ paths:
   /webapp/notifications/web-push/account-unsubscribe:
     post:
       operationId: unsubscribeWebPush
-      summary: Unsubscribe from web push notifications
+      summary: Harbor Unsubscribe from web push notifications
       description: >-
         Removes a browser push subscription for the account.
       tags:
@@ -229,7 +229,7 @@ paths:
   /admin-tools/user-management/users/get:
     post:
       operationId: listUsers
-      summary: List users (paginated)
+      summary: Harbor List users (paginated)
       description: >-
         Retrieves a paginated list of users for admin management purposes.
       tags:
@@ -252,7 +252,7 @@ paths:
   /admin-tools/user-management/users/count/get:
     post:
       operationId: getUserCount
-      summary: Get total user count
+      summary: Harbor Get total user count
       description: >-
         Returns the total number of users in the project.
       tags:
@@ -275,7 +275,7 @@ paths:
   /admin-tools/user-management/users/details/get:
     post:
       operationId: getUserDetails
-      summary: Get detailed user info
+      summary: Harbor Get detailed user info
       description: >-
         Fetches comprehensive details for a specific user including profile,
         activity, and linked data.
@@ -299,7 +299,7 @@ paths:
   /admin-tools/user-management/user/transaction/new:
     post:
       operationId: createUserTransaction
-      summary: Modify user resources
+      summary: Harbor Modify user resources
       description: >-
         Creates a new resource transaction for a user, adding or subtracting
         platform resources such as points or badges.
@@ -321,7 +321,7 @@ paths:
   /admin-tools/user-management/user/accountstrike/get:
     post:
       operationId: getUserStrikes
-      summary: Get user strike records
+      summary: Harbor Get user strike records
       description: >-
         Retrieves all moderation strike records for the specified account.
       tags:
@@ -346,7 +346,7 @@ paths:
   /admin-tools/general/guilds/get:
     post:
       operationId: listGuilds
-      summary: List guilds (paginated)
+      summary: Harbor List guilds (paginated)
       description: >-
         Returns a paginated list of guilds in the project.
       tags:
@@ -369,7 +369,7 @@ paths:
   /admin-tools/general/guild/details:
     post:
       operationId: getGuildDetails
-      summary: Get guild details
+      summary: Harbor Get guild details
       description: >-
         Returns detailed information about a specific guild including members
         and configuration.
@@ -393,7 +393,7 @@ paths:
   /admin-tools/general/guild/details/update:
     post:
       operationId: updateGuildDetails
-      summary: Update guild info
+      summary: Harbor Update guild info
       description: >-
         Updates the name, description, or other metadata for a guild.
       tags:
@@ -414,7 +414,7 @@ paths:
   /admin-tools/general/guild/delete:
     post:
       operationId: deleteGuild
-      summary: Delete a guild
+      summary: Harbor Delete a guild
       description: >-
         Permanently removes a guild and all associated membership records.
       tags:
@@ -433,7 +433,7 @@ paths:
   /admin-tools/general/guild/members/get:
     post:
       operationId: listGuildMembers
-      summary: List guild members
+      summary: Harbor List guild members
       description: >-
         Returns a paginated list of members belonging to a guild.
       tags:
@@ -456,7 +456,7 @@ paths:
   /admin-tools/general/guild/members/add:
     post:
       operationId: addGuildMember
-      summary: Add guild member
+      summary: Harbor Add guild member
       description: >-
         Adds a user account to a guild.
       tags:
@@ -477,7 +477,7 @@ paths:
   /admin-tools/general/guild/members/remove:
     post:
       operationId: removeGuildMember
-      summary: Remove guild member
+      summary: Harbor Remove guild member
       description: >-
         Removes a user account from a guild.
       tags:
@@ -496,7 +496,7 @@ paths:
   /dash/analytics/chart/get:
     post:
       operationId: getAnalyticsChart
-      summary: Get analytics chart data
+      summary: Harbor Get analytics chart data
       description: >-
         Returns time-series chart data for the specified analytics metric and
         date range.
@@ -520,7 +520,7 @@ paths:
   /dash/analytics/get:
     post:
       operationId: getAnalytics
-      summary: Get analytics datapoints
+      summary: Harbor Get analytics datapoints
       description: >-
         Returns aggregated analytics datapoints for the dashboard.
       tags:
@@ -543,7 +543,7 @@ paths:
   /dash/analytics/discordChannels/get:
     post:
       operationId: getDiscordChannels
-      summary: Get Discord channels by sentiment
+      summary: Harbor Get Discord channels by sentiment
       description: >-
         Returns a paginated list of Discord channels filtered and sorted by
         sentiment score.
@@ -567,7 +567,7 @@ paths:
   /dash/analytics/steamReviews/get:
     post:
       operationId: getSteamReviews
-      summary: Get Steam reviews
+      summary: Harbor Get Steam reviews
       description: >-
         Returns a paginated list of Steam reviews for the connected game,
         including sentiment analysis data.
@@ -591,7 +591,7 @@ paths:
   /auth/beamable-email/login:
     post:
       operationId: loginWithEmail
-      summary: Login or create account via email
+      summary: Harbor Login or create account via email
       description: >-
         Authenticates a user with their email address via the Beamable email
         login method, creating the account if it does not exist.
@@ -615,7 +615,7 @@ paths:
   /auth/beamable-email/confirm:
     post:
       operationId: confirmEmailAccount
-      summary: Confirm account creation via email
+      summary: Harbor Confirm account creation via email
       description: >-
         Confirms a new account created via email by validating the confirmation
         token sent to the user's email address.
@@ -639,7 +639,7 @@ paths:
   /auth/blockchain-ethereum/create-or-login-authorize:
     post:
       operationId: loginWithEthereum
-      summary: Authenticate via Ethereum wallet
+      summary: Harbor Authenticate via Ethereum wallet
       description: >-
         Creates or logs in an account using an Ethereum wallet signature for
         blockchain-based authentication.
@@ -663,7 +663,7 @@ paths:
   /oauth/beamable/auth:
     post:
       operationId: prepareOAuthRedirect
-      summary: Prepare OAuth redirect
+      summary: Harbor Prepare OAuth redirect
       description: >-
         Generates the OAuth redirect URL for initiating the Beamable OAuth flow.
       tags:
@@ -686,7 +686,7 @@ paths:
   /oauth/beamable/callback:
     get:
       operationId: oauthCallback
-      summary: OAuth callback handler
+      summary: Harbor OAuth callback handler
       description: >-
         Handles the OAuth callback redirect from Beamable after user authorization,
         exchanging the authorization code for tokens.
@@ -703,7 +703,7 @@ paths:
   /dash/resource/banner/get:
     post:
       operationId: getBannerResource
-      summary: Get banner resource
+      summary: Harbor Get banner resource
       description: >-
         Retrieves the banner resource configuration for the dashboard.
       tags:
@@ -726,7 +726,7 @@ paths:
   /dash/resource/banner/set:
     post:
       operationId: setBannerResource
-      summary: Set banner resource
+      summary: Harbor Set banner resource
       description: >-
         Updates the banner resource configuration for the dashboard.
       tags:
@@ -747,7 +747,7 @@ paths:
   /general/addUsers:
     post:
       operationId: addUsersToProject
-      summary: Add users to project
+      summary: Harbor Add users to project
       description: >-
         Bulk-adds user accounts to the project.
       tags:
@@ -768,7 +768,7 @@ paths:
   /general/altcha/challenge:
     post:
       operationId: generateCaptchaChallenge
-      summary: Generate CAPTCHA challenge
+      summary: Harbor Generate CAPTCHA challenge
       description: >-
         Generates an Altcha CAPTCHA challenge for bot prevention on public forms.
       tags:
@@ -789,7 +789,7 @@ paths:
   /general/altcha/validate:
     post:
       operationId: validateCaptcha
-      summary: Validate CAPTCHA response
+      summary: Harbor Validate CAPTCHA response
       description: >-
         Validates a solved Altcha CAPTCHA response from the client.
       tags:

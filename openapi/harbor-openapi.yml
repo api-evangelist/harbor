@@ -52,7 +52,7 @@ paths:
   /communities/{communityId}/members:
     get:
       operationId: listMembers
-      summary: List community members
+      summary: Harbor List community members
       description: >-
         Returns a paginated list of members belonging to the specified
         community. Results can be filtered by tier, status, or join date
@@ -87,7 +87,7 @@ paths:
           description: Community not found.
     post:
       operationId: createMember
-      summary: Create a community member
+      summary: Harbor Create a community member
       description: >-
         Registers a new member in the specified community. The member is
         associated with an external user identifier from the brand's platform.
@@ -118,7 +118,7 @@ paths:
   /communities/{communityId}/members/{memberId}:
     get:
       operationId: getMember
-      summary: Get a community member
+      summary: Harbor Get a community member
       description: >-
         Returns the profile and engagement data for a specific member,
         including their point balance, tier, referral code, and
@@ -141,7 +141,7 @@ paths:
           description: Member not found.
     patch:
       operationId: updateMember
-      summary: Update a community member
+      summary: Harbor Update a community member
       description: >-
         Updates profile fields or status for an existing community member.
         Supports partial updates — only the fields provided in the request
@@ -173,7 +173,7 @@ paths:
   /communities/{communityId}/members/{memberId}/points:
     post:
       operationId: awardPoints
-      summary: Award points to a member
+      summary: Harbor Award points to a member
       description: >-
         Awards a specified number of points to a community member. Used
         for custom point events outside of standard challenges, such as
@@ -206,7 +206,7 @@ paths:
   /communities/{communityId}/challenges:
     get:
       operationId: listChallenges
-      summary: List challenges
+      summary: Harbor List challenges
       description: >-
         Returns all challenges configured for the community, including
         their point values, completion criteria, and active status.
@@ -235,7 +235,7 @@ paths:
           description: Community not found.
     post:
       operationId: createChallenge
-      summary: Create a challenge
+      summary: Harbor Create a challenge
       description: >-
         Creates a new challenge for community members to complete and earn
         points. Challenges can be one-time or repeatable, can have optional
@@ -264,7 +264,7 @@ paths:
   /communities/{communityId}/challenges/{challengeId}/complete:
     post:
       operationId: completeChallenge
-      summary: Mark a challenge as completed by a member
+      summary: Harbor Mark a challenge as completed by a member
       description: >-
         Records that a specific member has completed the given challenge
         and awards the configured points to that member. If the challenge
@@ -297,7 +297,7 @@ paths:
   /communities/{communityId}/rewards:
     get:
       operationId: listRewards
-      summary: List rewards
+      summary: Harbor List rewards
       description: >-
         Returns the rewards catalog for the community, including reward
         names, point costs, availability status, and redemption limits.
@@ -326,7 +326,7 @@ paths:
   /communities/{communityId}/redemptions:
     get:
       operationId: listRedemptions
-      summary: List redemptions
+      summary: Harbor List redemptions
       description: >-
         Returns a paginated list of reward redemption requests from
         community members. Can be filtered by status (pending, approved,
@@ -354,7 +354,7 @@ paths:
           description: Unauthorized.
     post:
       operationId: createRedemption
-      summary: Create a redemption request
+      summary: Harbor Create a redemption request
       description: >-
         Submits a redemption request on behalf of a member for a specific
         reward from the catalog. Deducts the reward's point cost from the
@@ -383,7 +383,7 @@ paths:
   /communities/{communityId}/leaderboard:
     get:
       operationId: getLeaderboard
-      summary: Get community leaderboard
+      summary: Harbor Get community leaderboard
       description: >-
         Returns the ranked leaderboard of community members sorted by
         total points earned. Supports optional time-window filtering
@@ -414,7 +414,7 @@ paths:
   /communities/{communityId}:
     get:
       operationId: getCommunity
-      summary: Get community details
+      summary: Harbor Get community details
       description: >-
         Returns configuration and metadata for the specified community,
         including name, branding settings, tier structure, and active
