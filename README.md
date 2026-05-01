@@ -16,7 +16,7 @@ Harbor is a no-code tool that lets brands build an owned community platform wher
 ## Timestamps
 
 - **Created:** 2025-02-17 
-- **Modified:** 2026-03-18 
+- **Modified:** 2026-04-28 
 
 ## APIs
 
@@ -34,7 +34,6 @@ The Harbor API enables programmatic access to the Harbor community platform, all
 
 - [Documentation](https://api.harbor.gg/)
 - [OpenAPI](https://api.harbor.gg/docs/v1/swagger.json)
-- [OpenAPI](openapi/harbor-api-openapi.yml)
 - [OpenAPI](openapi/harbor-openapi.yml)
 - [JSONSchema](json-schema/harbor-account-schema.json)
 - [JSONSchema](json-schema/harbor-member-schema.json)

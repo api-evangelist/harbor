@@ -15,7 +15,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/harbor/refs/heads/main/apis.yml
 created: '2025-02-17'
-modified: '2026-03-18'
+modified: '2026-04-28'
 specificationVersion: '0.19'
 apis:
   - aid: harbor:harbor
@@ -34,8 +34,6 @@ apis:
         url: https://api.harbor.gg/
       - type: OpenAPI
         url: https://api.harbor.gg/docs/v1/swagger.json
-      - type: OpenAPI
-        url: openapi/harbor-api-openapi.yml
       - type: OpenAPI
         url: openapi/harbor-openapi.yml
       - type: JSONSchema
