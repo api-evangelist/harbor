@@ -1,0 +1,492 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Harbor API
+  description: The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their
+    superfan community, rewards programs, and engagement features. Harbor is a no-code tool that lets brands build owned community
+    platforms where superfans can engage and earn rewards. The API provides endpoints for managing members, challenges, rewards,
+    redemptions, leaderboards, and community events. Authentication uses bearer tokens obtained via OAuth 2.0 client credentials.
+  tags:
+  - Harbor
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: harbor
+    baseUri: https://api.harbor.gg/v1
+    description: Harbor API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{HARBOR_TOKEN}}'
+    resources:
+    - name: communities-communityid-members
+      path: /communities/{communityId}/members
+      operations:
+      - name: listmembers
+        method: GET
+        description: Harbor List community members
+        inputParameters:
+        - name: tier
+          in: query
+          type: string
+          description: Filter members by loyalty tier name.
+        - name: status
+          in: query
+          type: string
+          description: Filter by member status.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createmember
+        method: POST
+        description: Harbor Create a community member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: communities-communityid-members-memberid
+      path: /communities/{communityId}/members/{memberId}
+      operations:
+      - name: getmember
+        method: GET
+        description: Harbor Get a community member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatemember
+        method: PATCH
+        description: Harbor Update a community member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: communities-communityid-members-memberid-points
+      path: /communities/{communityId}/members/{memberId}/points
+      operations:
+      - name: awardpoints
+        method: POST
+        description: Harbor Award points to a member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: communities-communityid-challenges
+      path: /communities/{communityId}/challenges
+      operations:
+      - name: listchallenges
+        method: GET
+        description: Harbor List challenges
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by challenge status.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createchallenge
+        method: POST
+        description: Harbor Create a challenge
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: communities-communityid-challenges-challengeid-c
+      path: /communities/{communityId}/challenges/{challengeId}/complete
+      operations:
+      - name: completechallenge
+        method: POST
+        description: Harbor Mark a challenge as completed by a member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: communities-communityid-rewards
+      path: /communities/{communityId}/rewards
+      operations:
+      - name: listrewards
+        method: GET
+        description: Harbor List rewards
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by reward availability status.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: communities-communityid-redemptions
+      path: /communities/{communityId}/redemptions
+      operations:
+      - name: listredemptions
+        method: GET
+        description: Harbor List redemptions
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by redemption status.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createredemption
+        method: POST
+        description: Harbor Create a redemption request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: communities-communityid-leaderboard
+      path: /communities/{communityId}/leaderboard
+      operations:
+      - name: getleaderboard
+        method: GET
+        description: Harbor Get community leaderboard
+        inputParameters:
+        - name: period
+          in: query
+          type: string
+          description: Time period for leaderboard calculation.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: communities-communityid
+      path: /communities/{communityId}
+      operations:
+      - name: getcommunity
+        method: GET
+        description: Harbor Get community details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: harbor-rest
+    description: REST adapter for Harbor API.
+    resources:
+    - path: /communities/{communityId}/members
+      name: listmembers
+      operations:
+      - method: GET
+        name: listmembers
+        description: Harbor List community members
+        call: harbor.listmembers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/members
+      name: createmember
+      operations:
+      - method: POST
+        name: createmember
+        description: Harbor Create a community member
+        call: harbor.createmember
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/members/{memberId}
+      name: getmember
+      operations:
+      - method: GET
+        name: getmember
+        description: Harbor Get a community member
+        call: harbor.getmember
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/members/{memberId}
+      name: updatemember
+      operations:
+      - method: PATCH
+        name: updatemember
+        description: Harbor Update a community member
+        call: harbor.updatemember
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/members/{memberId}/points
+      name: awardpoints
+      operations:
+      - method: POST
+        name: awardpoints
+        description: Harbor Award points to a member
+        call: harbor.awardpoints
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/challenges
+      name: listchallenges
+      operations:
+      - method: GET
+        name: listchallenges
+        description: Harbor List challenges
+        call: harbor.listchallenges
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/challenges
+      name: createchallenge
+      operations:
+      - method: POST
+        name: createchallenge
+        description: Harbor Create a challenge
+        call: harbor.createchallenge
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/challenges/{challengeId}/complete
+      name: completechallenge
+      operations:
+      - method: POST
+        name: completechallenge
+        description: Harbor Mark a challenge as completed by a member
+        call: harbor.completechallenge
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/rewards
+      name: listrewards
+      operations:
+      - method: GET
+        name: listrewards
+        description: Harbor List rewards
+        call: harbor.listrewards
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/redemptions
+      name: listredemptions
+      operations:
+      - method: GET
+        name: listredemptions
+        description: Harbor List redemptions
+        call: harbor.listredemptions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/redemptions
+      name: createredemption
+      operations:
+      - method: POST
+        name: createredemption
+        description: Harbor Create a redemption request
+        call: harbor.createredemption
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}/leaderboard
+      name: getleaderboard
+      operations:
+      - method: GET
+        name: getleaderboard
+        description: Harbor Get community leaderboard
+        call: harbor.getleaderboard
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /communities/{communityId}
+      name: getcommunity
+      operations:
+      - method: GET
+        name: getcommunity
+        description: Harbor Get community details
+        call: harbor.getcommunity
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: harbor-mcp
+    transport: http
+    description: MCP adapter for Harbor API for AI agent use.
+    tools:
+    - name: listmembers
+      description: Harbor List community members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor.listmembers
+      with:
+        tier: tools.tier
+        status: tools.status
+      inputParameters:
+      - name: tier
+        type: string
+        description: Filter members by loyalty tier name.
+      - name: status
+        type: string
+        description: Filter by member status.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createmember
+      description: Harbor Create a community member
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: harbor.createmember
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getmember
+      description: Harbor Get a community member
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor.getmember
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatemember
+      description: Harbor Update a community member
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: harbor.updatemember
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: awardpoints
+      description: Harbor Award points to a member
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: harbor.awardpoints
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listchallenges
+      description: Harbor List challenges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor.listchallenges
+      with:
+        status: tools.status
+      inputParameters:
+      - name: status
+        type: string
+        description: Filter by challenge status.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createchallenge
+      description: Harbor Create a challenge
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: harbor.createchallenge
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: completechallenge
+      description: Harbor Mark a challenge as completed by a member
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: harbor.completechallenge
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listrewards
+      description: Harbor List rewards
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor.listrewards
+      with:
+        status: tools.status
+      inputParameters:
+      - name: status
+        type: string
+        description: Filter by reward availability status.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listredemptions
+      description: Harbor List redemptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor.listredemptions
+      with:
+        status: tools.status
+      inputParameters:
+      - name: status
+        type: string
+        description: Filter by redemption status.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createredemption
+      description: Harbor Create a redemption request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: harbor.createredemption
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getleaderboard
+      description: Harbor Get community leaderboard
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor.getleaderboard
+      with:
+        period: tools.period
+      inputParameters:
+      - name: period
+        type: string
+        description: Time period for leaderboard calculation.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcommunity
+      description: Harbor Get community details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor.getcommunity
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    HARBOR_TOKEN: HARBOR_TOKEN
