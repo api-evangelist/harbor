@@ -45,9 +45,9 @@ common:
     url: https://www.harbor.gg/
   - type: Documentation
     url: https://api.harbor.gg/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.harbor.gg/privacy-policy
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/harbor-context.jsonld
   - type: JSONSchema
     url: json-schema/harbor-member-schema.json
