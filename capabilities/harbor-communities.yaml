@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Harbor API — Communities
+  description: 'Harbor API — Communities. 1 operations. Lead operation: Harbor Get community details. Self-contained Naftiko
+    capability covering one Harbor business surface.'
+  tags:
+  - Harbor
+  - Communities
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HARBOR_API_KEY: HARBOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: harbor-communities
+    baseUri: https://api.harbor.gg/v1
+    description: Harbor API — Communities business capability. Self-contained, no shared references.
+    resources:
+    - name: communities-communityId
+      path: /communities/{communityId}
+      operations:
+      - name: getcommunity
+        method: GET
+        description: Harbor Get community details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.HARBOR_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: harbor-communities-rest
+    port: 8080
+    description: REST adapter for Harbor API — Communities. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/communities/{communityid}
+      name: communities-communityid
+      description: REST surface for communities-communityId.
+      operations:
+      - method: GET
+        name: getcommunity
+        description: Harbor Get community details
+        call: harbor-communities.getcommunity
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: harbor-communities-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Harbor API — Communities. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: harbor-get-community-details
+      description: Harbor Get community details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor-communities.getcommunity
+      outputParameters:
+      - type: object
+        mapping: $.

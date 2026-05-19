@@ -1,0 +1,156 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Harbor API — Challenges
+  description: 'Harbor API — Challenges. 3 operations. Lead operation: Harbor List challenges. Self-contained Naftiko capability
+    covering one Harbor business surface.'
+  tags:
+  - Harbor
+  - Challenges
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HARBOR_API_KEY: HARBOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: harbor-challenges
+    baseUri: https://api.harbor.gg/v1
+    description: Harbor API — Challenges business capability. Self-contained, no shared references.
+    resources:
+    - name: communities-communityId-challenges
+      path: /communities/{communityId}/challenges
+      operations:
+      - name: listchallenges
+        method: GET
+        description: Harbor List challenges
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by challenge status.
+      - name: createchallenge
+        method: POST
+        description: Harbor Create a challenge
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: communities-communityId-challenges-challengeId-complete
+      path: /communities/{communityId}/challenges/{challengeId}/complete
+      operations:
+      - name: completechallenge
+        method: POST
+        description: Harbor Mark a challenge as completed by a member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.HARBOR_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: harbor-challenges-rest
+    port: 8080
+    description: REST adapter for Harbor API — Challenges. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/communities/{communityid}/challenges
+      name: communities-communityid-challenges
+      description: REST surface for communities-communityId-challenges.
+      operations:
+      - method: GET
+        name: listchallenges
+        description: Harbor List challenges
+        call: harbor-challenges.listchallenges
+        with:
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createchallenge
+        description: Harbor Create a challenge
+        call: harbor-challenges.createchallenge
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/communities/{communityid}/challenges/{challengeid}/complete
+      name: communities-communityid-challenges-challengeid-complete
+      description: REST surface for communities-communityId-challenges-challengeId-complete.
+      operations:
+      - method: POST
+        name: completechallenge
+        description: Harbor Mark a challenge as completed by a member
+        call: harbor-challenges.completechallenge
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: harbor-challenges-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Harbor API — Challenges. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: harbor-list-challenges
+      description: Harbor List challenges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor-challenges.listchallenges
+      with:
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: harbor-create-challenge
+      description: Harbor Create a challenge
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: harbor-challenges.createchallenge
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: harbor-mark-challenge-completed-member
+      description: Harbor Mark a challenge as completed by a member
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: harbor-challenges.completechallenge
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

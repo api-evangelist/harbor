@@ -1,0 +1,79 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Harbor API — Leaderboards
+  description: 'Harbor API — Leaderboards. 1 operations. Lead operation: Harbor Get community leaderboard. Self-contained
+    Naftiko capability covering one Harbor business surface.'
+  tags:
+  - Harbor
+  - Leaderboards
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HARBOR_API_KEY: HARBOR_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: harbor-leaderboards
+    baseUri: https://api.harbor.gg/v1
+    description: Harbor API — Leaderboards business capability. Self-contained, no shared references.
+    resources:
+    - name: communities-communityId-leaderboard
+      path: /communities/{communityId}/leaderboard
+      operations:
+      - name: getleaderboard
+        method: GET
+        description: Harbor Get community leaderboard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: period
+          in: query
+          type: string
+          description: Time period for leaderboard calculation.
+    authentication:
+      type: bearer
+      token: '{{env.HARBOR_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: harbor-leaderboards-rest
+    port: 8080
+    description: REST adapter for Harbor API — Leaderboards. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/communities/{communityid}/leaderboard
+      name: communities-communityid-leaderboard
+      description: REST surface for communities-communityId-leaderboard.
+      operations:
+      - method: GET
+        name: getleaderboard
+        description: Harbor Get community leaderboard
+        call: harbor-leaderboards.getleaderboard
+        with:
+          period: rest.period
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: harbor-leaderboards-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Harbor API — Leaderboards. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: harbor-get-community-leaderboard
+      description: Harbor Get community leaderboard
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: harbor-leaderboards.getleaderboard
+      with:
+        period: tools.period
+      outputParameters:
+      - type: object
+        mapping: $.
