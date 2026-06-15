@@ -1,0 +1,425 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Harbor API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Harbor List community members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/members",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (1-based)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "tier",
+                "value": "",
+                "type": "query",
+                "description": "Filter members by loyalty tier name."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by member status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of members belonging to the specified community. Results can be filtered by tier, status, or join date and are sorted by points balance or join date by default."
+        },
+        {
+          "info": {
+            "name": "Harbor Create a community member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/members",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new member in the specified community. The member is associated with an external user identifier from the brand's platform. An optional referral code can be provided to credit the referrer."
+        },
+        {
+          "info": {
+            "name": "Harbor Get a community member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/members/:memberId",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the community member."
+              }
+            ]
+          },
+          "docs": "Returns the profile and engagement data for a specific member, including their point balance, tier, referral code, and challenge completion history."
+        },
+        {
+          "info": {
+            "name": "Harbor Update a community member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/members/:memberId",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the community member."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates profile fields or status for an existing community member. Supports partial updates — only the fields provided in the request body are modified."
+        },
+        {
+          "info": {
+            "name": "Harbor Award points to a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/members/:memberId/points",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the community member."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Awards a specified number of points to a community member. Used for custom point events outside of standard challenges, such as purchase rewards, anniversary bonuses, or manual adjustments. A description is required to explain the reason for the award."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Challenges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Harbor List challenges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/challenges",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by challenge status."
+              }
+            ]
+          },
+          "docs": "Returns all challenges configured for the community, including their point values, completion criteria, and active status. Challenges can be one-time or repeatable and cover actions like following social accounts, making purchases, or attending events."
+        },
+        {
+          "info": {
+            "name": "Harbor Create a challenge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/challenges",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new challenge for community members to complete and earn points. Challenges can be one-time or repeatable, can have optional verification requirements, and support various completion action types."
+        },
+        {
+          "info": {
+            "name": "Harbor Mark a challenge as completed by a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/challenges/:challengeId/complete",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "challengeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the challenge."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records that a specific member has completed the given challenge and awards the configured points to that member. If the challenge requires verification, proof must be provided. Idempotent for one-time challenges — duplicate completion requests are ignored."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Rewards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Harbor List rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/rewards",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by reward availability status."
+              }
+            ]
+          },
+          "docs": "Returns the rewards catalog for the community, including reward names, point costs, availability status, and redemption limits. Members can redeem rewards using their earned points."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Redemptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Harbor List redemptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/redemptions",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (1-based)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by redemption status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of reward redemption requests from community members. Can be filtered by status (pending, approved, fulfilled, rejected) for fulfillment workflow management."
+        },
+        {
+          "info": {
+            "name": "Harbor Create a redemption request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/redemptions",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a redemption request on behalf of a member for a specific reward from the catalog. Deducts the reward's point cost from the member's balance if they have sufficient points."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Leaderboards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Harbor Get community leaderboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/leaderboard",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for leaderboard calculation."
+              }
+            ]
+          },
+          "docs": "Returns the ranked leaderboard of community members sorted by total points earned. Supports optional time-window filtering for weekly or monthly leaderboards."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Communities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Harbor Get community details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              }
+            ]
+          },
+          "docs": "Returns configuration and metadata for the specified community, including name, branding settings, tier structure, and active feature flags."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
