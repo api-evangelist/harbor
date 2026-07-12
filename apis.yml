@@ -38,6 +38,10 @@ apis:
       - type: JSONSchema
         url: json-schema/harbor-member-schema.json
 common:
+  - type: DomainSecurity
+    url: security/harbor-domain-security.yml
+  - type: Authentication
+    url: authentication/harbor-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/goharbor
   - type: Website

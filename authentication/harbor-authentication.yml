@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/harbor-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token obtained via OAuth 2.0 client credentials flow. Contact Harbor to
+    obtain API credentials.
+  sources:
+  - openapi/harbor-openapi.yml
