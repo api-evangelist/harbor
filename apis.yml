@@ -38,6 +38,8 @@ apis:
       - type: JSONSchema
         url: json-schema/harbor-member-schema.json
 common:
+  - type: AgenticAccess
+    url: agentic-access/harbor-agentic-access.yml
   - type: DomainSecurity
     url: security/harbor-domain-security.yml
   - type: Authentication
