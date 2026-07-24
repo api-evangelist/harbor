@@ -1,0 +1,252 @@
+openapi: 3.1.0
+info:
+  title: Harbor Challenges Redemptions API
+  description: The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their superfan community, rewards programs, and engagement features. Harbor is a no-code tool that lets brands build owned community platforms where superfans can engage and earn rewards. The API provides endpoints for managing members, challenges, rewards, redemptions, leaderboards, and community events. Authentication uses bearer tokens obtained via OAuth 2.0 client credentials.
+  version: v1
+  contact:
+    name: Harbor Support
+    url: https://www.harbor.gg/
+  termsOfService: https://www.harbor.gg/terms
+servers:
+- url: https://api.harbor.gg/v1
+  description: Harbor API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Redemptions
+  description: Operations for managing reward redemption requests from members.
+paths:
+  /communities/{communityId}/redemptions:
+    get:
+      operationId: listRedemptions
+      summary: Harbor List redemptions
+      description: Returns a paginated list of reward redemption requests from community members. Can be filtered by status (pending, approved, fulfilled, rejected) for fulfillment workflow management.
+      tags:
+      - Redemptions
+      parameters:
+      - $ref: '#/components/parameters/communityIdParam'
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: status
+        in: query
+        description: Filter by redemption status.
+        schema:
+          type: string
+          enum:
+          - pending
+          - approved
+          - fulfilled
+          - rejected
+      responses:
+        '200':
+          description: List of redemptions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedemptionList'
+        '401':
+          description: Unauthorized.
+    post:
+      operationId: createRedemption
+      summary: Harbor Create a redemption request
+      description: Submits a redemption request on behalf of a member for a specific reward from the catalog. Deducts the reward's point cost from the member's balance if they have sufficient points.
+      tags:
+      - Redemptions
+      parameters:
+      - $ref: '#/components/parameters/communityIdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRedemptionRequest'
+      responses:
+        '201':
+          description: Redemption created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Redemption'
+        '400':
+          description: Insufficient points or reward unavailable.
+        '401':
+          description: Unauthorized.
+components:
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Number of results per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    pageParam:
+      name: page
+      in: query
+      description: Page number for pagination (1-based).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
+  schemas:
+    RedemptionList:
+      type: object
+      description: Paginated list of redemptions.
+      properties:
+        data:
+          type: array
+          description: Array of redemption objects.
+          items:
+            $ref: '#/components/schemas/Redemption'
+        total:
+          type: integer
+          description: Total number of redemptions.
+        page:
+          type: integer
+          description: Current page number.
+        limit:
+          type: integer
+          description: Results per page.
+    CreateRedemptionRequest:
+      type: object
+      description: Request body for creating a reward redemption.
+      required:
+      - memberId
+      - rewardId
+      properties:
+        memberId:
+          type: string
+          description: Identifier of the member redeeming the reward.
+        rewardId:
+          type: string
+          description: Identifier of the reward to redeem.
+        shippingAddress:
+          type: object
+          description: Shipping address for physical reward redemptions.
+          properties:
+            name:
+              type: string
+              description: Recipient name.
+            line1:
+              type: string
+              description: Address line 1.
+            line2:
+              type: string
+              description: Address line 2.
+            city:
+              type: string
+              description: City.
+            state:
+              type: string
+              description: State or province.
+            postalCode:
+              type: string
+              description: Postal code.
+            country:
+              type: string
+              description: ISO 3166-1 alpha-2 country code.
+              pattern: ^[A-Z]{2}$
+    Reward:
+      type: object
+      description: A reward available for redemption in the community catalog.
+      properties:
+        id:
+          type: string
+          description: Unique reward identifier.
+        communityId:
+          type: string
+          description: Community this reward belongs to.
+        title:
+          type: string
+          description: Reward display title.
+        description:
+          type: string
+          description: Detailed reward description.
+        pointCost:
+          type: integer
+          description: Number of points required to redeem this reward.
+          minimum: 1
+        type:
+          type: string
+          description: Reward type.
+          enum:
+          - discount_code
+          - physical_item
+          - digital_download
+          - experience
+          - custom
+        status:
+          type: string
+          description: Availability status.
+          enum:
+          - active
+          - inactive
+          - sold_out
+        quantity:
+          type: integer
+          description: Total quantity available. Null for unlimited.
+        remainingQuantity:
+          type: integer
+          description: Current remaining quantity.
+        imageUrl:
+          type: string
+          format: uri
+          description: URL of the reward image.
+    Redemption:
+      type: object
+      description: A reward redemption request from a community member.
+      properties:
+        id:
+          type: string
+          description: Unique redemption identifier.
+        communityId:
+          type: string
+          description: Community this redemption belongs to.
+        memberId:
+          type: string
+          description: Member who requested the redemption.
+        rewardId:
+          type: string
+          description: Reward being redeemed.
+        reward:
+          $ref: '#/components/schemas/Reward'
+        pointsSpent:
+          type: integer
+          description: Points deducted for this redemption.
+        status:
+          type: string
+          description: Current redemption status.
+          enum:
+          - pending
+          - approved
+          - fulfilled
+          - rejected
+        fulfillmentData:
+          type: object
+          description: Fulfillment data such as discount codes or shipping information.
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+          description: When the redemption was requested.
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the redemption was last updated.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained via OAuth 2.0 client credentials flow. Contact Harbor to obtain API credentials.
+externalDocs:
+  description: Harbor API Documentation
+  url: https://api.harbor.gg/

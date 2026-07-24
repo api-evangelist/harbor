@@ -1,0 +1,123 @@
+openapi: 3.1.0
+info:
+  title: Harbor Challenges Rewards API
+  description: The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their superfan community, rewards programs, and engagement features. Harbor is a no-code tool that lets brands build owned community platforms where superfans can engage and earn rewards. The API provides endpoints for managing members, challenges, rewards, redemptions, leaderboards, and community events. Authentication uses bearer tokens obtained via OAuth 2.0 client credentials.
+  version: v1
+  contact:
+    name: Harbor Support
+    url: https://www.harbor.gg/
+  termsOfService: https://www.harbor.gg/terms
+servers:
+- url: https://api.harbor.gg/v1
+  description: Harbor API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Rewards
+  description: Operations for managing the rewards catalog that members can redeem with earned points.
+paths:
+  /communities/{communityId}/rewards:
+    get:
+      operationId: listRewards
+      summary: Harbor List rewards
+      description: Returns the rewards catalog for the community, including reward names, point costs, availability status, and redemption limits. Members can redeem rewards using their earned points.
+      tags:
+      - Rewards
+      parameters:
+      - $ref: '#/components/parameters/communityIdParam'
+      - name: status
+        in: query
+        description: Filter by reward availability status.
+        schema:
+          type: string
+          enum:
+          - active
+          - inactive
+          - sold_out
+      responses:
+        '200':
+          description: List of available rewards.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RewardList'
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Community not found.
+components:
+  schemas:
+    Reward:
+      type: object
+      description: A reward available for redemption in the community catalog.
+      properties:
+        id:
+          type: string
+          description: Unique reward identifier.
+        communityId:
+          type: string
+          description: Community this reward belongs to.
+        title:
+          type: string
+          description: Reward display title.
+        description:
+          type: string
+          description: Detailed reward description.
+        pointCost:
+          type: integer
+          description: Number of points required to redeem this reward.
+          minimum: 1
+        type:
+          type: string
+          description: Reward type.
+          enum:
+          - discount_code
+          - physical_item
+          - digital_download
+          - experience
+          - custom
+        status:
+          type: string
+          description: Availability status.
+          enum:
+          - active
+          - inactive
+          - sold_out
+        quantity:
+          type: integer
+          description: Total quantity available. Null for unlimited.
+        remainingQuantity:
+          type: integer
+          description: Current remaining quantity.
+        imageUrl:
+          type: string
+          format: uri
+          description: URL of the reward image.
+    RewardList:
+      type: object
+      description: List of community rewards.
+      properties:
+        data:
+          type: array
+          description: Array of reward objects.
+          items:
+            $ref: '#/components/schemas/Reward'
+        total:
+          type: integer
+          description: Total number of rewards.
+  parameters:
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained via OAuth 2.0 client credentials flow. Contact Harbor to obtain API credentials.
+externalDocs:
+  description: Harbor API Documentation
+  url: https://api.harbor.gg/

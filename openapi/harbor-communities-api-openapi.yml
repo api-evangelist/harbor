@@ -1,0 +1,111 @@
+openapi: 3.1.0
+info:
+  title: Harbor Challenges Communities API
+  description: The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their superfan community, rewards programs, and engagement features. Harbor is a no-code tool that lets brands build owned community platforms where superfans can engage and earn rewards. The API provides endpoints for managing members, challenges, rewards, redemptions, leaderboards, and community events. Authentication uses bearer tokens obtained via OAuth 2.0 client credentials.
+  version: v1
+  contact:
+    name: Harbor Support
+    url: https://www.harbor.gg/
+  termsOfService: https://www.harbor.gg/terms
+servers:
+- url: https://api.harbor.gg/v1
+  description: Harbor API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Communities
+  description: Operations for managing community configuration and settings.
+paths:
+  /communities/{communityId}:
+    get:
+      operationId: getCommunity
+      summary: Harbor Get community details
+      description: Returns configuration and metadata for the specified community, including name, branding settings, tier structure, and active feature flags.
+      tags:
+      - Communities
+      parameters:
+      - $ref: '#/components/parameters/communityIdParam'
+      responses:
+        '200':
+          description: Community details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Community'
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Community not found.
+components:
+  parameters:
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
+  schemas:
+    Community:
+      type: object
+      description: A Harbor community platform configuration.
+      properties:
+        id:
+          type: string
+          description: Unique community identifier.
+        name:
+          type: string
+          description: Community display name.
+        slug:
+          type: string
+          description: URL-friendly community slug.
+        description:
+          type: string
+          description: Community description shown to members.
+        logoUrl:
+          type: string
+          format: uri
+          description: URL of the community logo image.
+        primaryColor:
+          type: string
+          description: Brand primary color in hexadecimal format.
+          pattern: ^#[0-9A-Fa-f]{6}$
+        tiers:
+          type: array
+          description: Loyalty tier structure configured for this community.
+          items:
+            $ref: '#/components/schemas/Tier'
+        memberCount:
+          type: integer
+          description: Total number of registered members.
+          minimum: 0
+        createdAt:
+          type: string
+          format: date-time
+          description: When the community was created.
+    Tier:
+      type: object
+      description: Loyalty tier a member has achieved.
+      properties:
+        id:
+          type: string
+          description: Tier identifier.
+        name:
+          type: string
+          description: Tier display name (e.g., Bronze, Silver, Gold).
+        pointsRequired:
+          type: integer
+          description: Minimum lifetime points required to reach this tier.
+        benefits:
+          type: array
+          description: List of benefits associated with this tier.
+          items:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained via OAuth 2.0 client credentials flow. Contact Harbor to obtain API credentials.
+externalDocs:
+  description: Harbor API Documentation
+  url: https://api.harbor.gg/

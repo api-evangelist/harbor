@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: Harbor Challenges Leaderboards API
+  description: The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their superfan community, rewards programs, and engagement features. Harbor is a no-code tool that lets brands build owned community platforms where superfans can engage and earn rewards. The API provides endpoints for managing members, challenges, rewards, redemptions, leaderboards, and community events. Authentication uses bearer tokens obtained via OAuth 2.0 client credentials.
+  version: v1
+  contact:
+    name: Harbor Support
+    url: https://www.harbor.gg/
+  termsOfService: https://www.harbor.gg/terms
+servers:
+- url: https://api.harbor.gg/v1
+  description: Harbor API Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Leaderboards
+  description: Operations for retrieving leaderboard rankings of community members by points or other engagement metrics.
+paths:
+  /communities/{communityId}/leaderboard:
+    get:
+      operationId: getLeaderboard
+      summary: Harbor Get community leaderboard
+      description: Returns the ranked leaderboard of community members sorted by total points earned. Supports optional time-window filtering for weekly or monthly leaderboards.
+      tags:
+      - Leaderboards
+      parameters:
+      - $ref: '#/components/parameters/communityIdParam'
+      - $ref: '#/components/parameters/limitParam'
+      - name: period
+        in: query
+        description: Time period for leaderboard calculation.
+        schema:
+          type: string
+          enum:
+          - all_time
+          - monthly
+          - weekly
+          default: all_time
+      responses:
+        '200':
+          description: Leaderboard rankings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Leaderboard'
+        '401':
+          description: Unauthorized.
+        '404':
+          description: Community not found.
+components:
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Number of results per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
+  schemas:
+    Leaderboard:
+      type: object
+      description: Community leaderboard with ranked member entries.
+      properties:
+        communityId:
+          type: string
+          description: Community identifier.
+        period:
+          type: string
+          description: Time period this leaderboard covers.
+          enum:
+          - all_time
+          - monthly
+          - weekly
+        entries:
+          type: array
+          description: Ranked list of member entries.
+          items:
+            $ref: '#/components/schemas/LeaderboardEntry'
+        generatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the leaderboard was last calculated.
+    LeaderboardEntry:
+      type: object
+      description: A single entry in the community leaderboard.
+      properties:
+        rank:
+          type: integer
+          description: Member's current rank position on the leaderboard.
+          minimum: 1
+        memberId:
+          type: string
+          description: Member identifier.
+        displayName:
+          type: string
+          description: Member's display name.
+        points:
+          type: integer
+          description: Points total used for ranking.
+          minimum: 0
+        tier:
+          $ref: '#/components/schemas/Tier'
+    Tier:
+      type: object
+      description: Loyalty tier a member has achieved.
+      properties:
+        id:
+          type: string
+          description: Tier identifier.
+        name:
+          type: string
+          description: Tier display name (e.g., Bronze, Silver, Gold).
+        pointsRequired:
+          type: integer
+          description: Minimum lifetime points required to reach this tier.
+        benefits:
+          type: array
+          description: List of benefits associated with this tier.
+          items:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained via OAuth 2.0 client credentials flow. Contact Harbor to obtain API credentials.
+externalDocs:
+  description: Harbor API Documentation
+  url: https://api.harbor.gg/
