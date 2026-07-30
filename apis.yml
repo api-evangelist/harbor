@@ -5,7 +5,20 @@ description: >-
   and earn rewards. Harbor enables businesses to create superfan strategies through customizable community platforms
   with engagement and loyalty features.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/harbor.png
 tags:
   - Community
   - Engagement
@@ -16,27 +29,99 @@ created: '2025-02-17'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: harbor:harbor
-    name: Harbor API
-    description: >-
-      The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their
-      superfan community, rewards programs, and engagement features.
-    humanURL: https://api.harbor.gg/
-    tags:
-      - Community
-      - Engagement
-      - Loyalty
-    properties:
-      - type: Documentation
-        url: https://api.harbor.gg/
-      - type: OpenAPI
-        url: https://api.harbor.gg/docs/v1/swagger.json
-      - type: OpenAPI
-        url: openapi/harbor-openapi.yml
-      - type: JSONSchema
-        url: json-schema/harbor-account-schema.json
-      - type: JSONSchema
-        url: json-schema/harbor-member-schema.json
+- aid: harbor:harbor-challenges-api
+  name: Harbor Challenges API
+  description: Operations for managing challenges that members complete to earn points and rewards.
+  humanURL: https://api.harbor.gg/
+  tags:
+  - Challenges
+  properties:
+  - type: OpenAPI
+    url: openapi/harbor-challenges-api-openapi.yml
+  - type: Documentation
+    url: https://api.harbor.gg/
+  - type: JSONSchema
+    url: json-schema/harbor-account-schema.json
+  - type: JSONSchema
+    url: json-schema/harbor-member-schema.json
+- aid: harbor:harbor-communities-api
+  name: Harbor Communities API
+  description: Operations for managing community configuration and settings.
+  humanURL: https://api.harbor.gg/
+  tags:
+  - Communities
+  properties:
+  - type: OpenAPI
+    url: openapi/harbor-communities-api-openapi.yml
+  - type: Documentation
+    url: https://api.harbor.gg/
+  - type: JSONSchema
+    url: json-schema/harbor-account-schema.json
+  - type: JSONSchema
+    url: json-schema/harbor-member-schema.json
+- aid: harbor:harbor-leaderboards-api
+  name: Harbor Leaderboards API
+  description: >-
+    Operations for retrieving leaderboard rankings of community members by points or other engagement
+    metrics.
+  humanURL: https://api.harbor.gg/
+  tags:
+  - Leaderboards
+  properties:
+  - type: OpenAPI
+    url: openapi/harbor-leaderboards-api-openapi.yml
+  - type: Documentation
+    url: https://api.harbor.gg/
+  - type: JSONSchema
+    url: json-schema/harbor-account-schema.json
+  - type: JSONSchema
+    url: json-schema/harbor-member-schema.json
+- aid: harbor:harbor-members-api
+  name: Harbor Members API
+  description: >-
+    Operations for managing community members, their profiles, point balances, and tier status.
+  humanURL: https://api.harbor.gg/
+  tags:
+  - Members
+  properties:
+  - type: OpenAPI
+    url: openapi/harbor-members-api-openapi.yml
+  - type: Documentation
+    url: https://api.harbor.gg/
+  - type: JSONSchema
+    url: json-schema/harbor-account-schema.json
+  - type: JSONSchema
+    url: json-schema/harbor-member-schema.json
+- aid: harbor:harbor-redemptions-api
+  name: Harbor Redemptions API
+  description: Operations for managing reward redemption requests from members.
+  humanURL: https://api.harbor.gg/
+  tags:
+  - Redemptions
+  properties:
+  - type: OpenAPI
+    url: openapi/harbor-redemptions-api-openapi.yml
+  - type: Documentation
+    url: https://api.harbor.gg/
+  - type: JSONSchema
+    url: json-schema/harbor-account-schema.json
+  - type: JSONSchema
+    url: json-schema/harbor-member-schema.json
+- aid: harbor:harbor-rewards-api
+  name: Harbor Rewards API
+  description: Operations for managing the rewards catalog that members can redeem with earned points.
+  humanURL: https://api.harbor.gg/
+  tags:
+  - Rewards
+  properties:
+  - type: OpenAPI
+    url: openapi/harbor-rewards-api-openapi.yml
+  - type: Documentation
+    url: https://api.harbor.gg/
+  - type: JSONSchema
+    url: json-schema/harbor-account-schema.json
+  - type: JSONSchema
+    url: json-schema/harbor-member-schema.json
 common:
   - type: AgenticAccess
     url: agentic-access/harbor-agentic-access.yml
