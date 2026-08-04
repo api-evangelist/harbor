@@ -1,0 +1,24 @@
+{
+  "provider": "harbor",
+  "sources": [
+    "harbor-challenges-api-openapi.yml",
+    "harbor-communities-api-openapi.yml",
+    "harbor-leaderboards-api-openapi.yml",
+    "harbor-members-api-openapi.yml",
+    "harbor-redemptions-api-openapi.yml",
+    "harbor-rewards-api-openapi.yml"
+  ],
+  "outputs": [
+    "harbor-challenges-api-openapi.yml",
+    "harbor-communities-api-openapi.yml",
+    "harbor-leaderboards-api-openapi.yml",
+    "harbor-members-api-openapi.yml",
+    "harbor-redemptions-api-openapi.yml",
+    "harbor-rewards-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
