@@ -1,0 +1,466 @@
+{
+  "item": [
+    {
+      "id": "e1457e34-2464-44cf-8d63-6ea586adf842",
+      "name": "Redemptions",
+      "description": {
+        "content": "Operations for managing reward redemption requests from members.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "abbef84c-4a60-49b3-93fd-09161ad1d35f",
+          "name": "Harbor List redemptions",
+          "request": {
+            "name": "Harbor List redemptions",
+            "description": {
+              "content": "Returns a paginated list of reward redemption requests from community members. Can be filtered by status (pending, approved, fulfilled, rejected) for fulfillment workflow management.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "communities",
+                ":communityId",
+                "redemptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for pagination (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of results per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by redemption status."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityId",
+                  "description": "(Required) The unique identifier of the Harbor community."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20d7be88-3fa7-4980-aaaa-d8bff297f43d",
+              "name": "List of redemptions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "communities",
+                    ":communityId",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) The unique identifier of the Harbor community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"communityId\": \"string\",\n      \"memberId\": \"string\",\n      \"rewardId\": \"string\",\n      \"reward\": {\n        \"id\": \"string\",\n        \"communityId\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"pointCost\": 329,\n        \"type\": \"custom\",\n        \"status\": \"active\",\n        \"quantity\": 413,\n        \"remainingQuantity\": 5773,\n        \"imageUrl\": \"https://AAMYBlCbNcJGGnCnDnUE.vzeoOPZoxUyDGjq,..uyOxJxptqqTgYPA9sSvDwoQoVC\"\n      },\n      \"pointsSpent\": 5131,\n      \"status\": \"rejected\",\n      \"fulfillmentData\": {\n        \"key_0\": 7726\n      },\n      \"createdAt\": \"1971-03-09T16:44:16.351Z\",\n      \"updatedAt\": \"1977-01-15T00:38:14.683Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"communityId\": \"string\",\n      \"memberId\": \"string\",\n      \"rewardId\": \"string\",\n      \"reward\": {\n        \"id\": \"string\",\n        \"communityId\": \"string\",\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"pointCost\": 6090,\n        \"type\": \"custom\",\n        \"status\": \"inactive\",\n        \"quantity\": 9182,\n        \"remainingQuantity\": 3726,\n        \"imageUrl\": \"http://UlsZRvDnYPGZqeSLY.gkhoDvVw3+5J0vNwwyGT\"\n      },\n      \"pointsSpent\": 5709,\n      \"status\": \"rejected\",\n      \"fulfillmentData\": {\n        \"key_0\": 2001\n      },\n      \"createdAt\": \"1996-01-22T15:12:45.369Z\",\n      \"updatedAt\": \"1998-12-16T20:54:03.608Z\"\n    }\n  ],\n  \"total\": 5705,\n  \"page\": 1568,\n  \"limit\": 8461\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d539ffd0-d085-47a9-aea7-e01f1754cf0c",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "communities",
+                    ":communityId",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) The unique identifier of the Harbor community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7fb276f6-3b65-4da1-a689-e07597a4a45b",
+          "name": "Harbor Create a redemption request",
+          "request": {
+            "name": "Harbor Create a redemption request",
+            "description": {
+              "content": "Submits a redemption request on behalf of a member for a specific reward from the catalog. Deducts the reward's point cost from the member's balance if they have sufficient points.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "communities",
+                ":communityId",
+                "redemptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityId",
+                  "description": "(Required) The unique identifier of the Harbor community."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"memberId\": \"<string>\",\n  \"rewardId\": \"<string>\",\n  \"shippingAddress\": {\n    \"name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "82cb234e-25ab-4587-ac60-e6257f2d0849",
+              "name": "Redemption created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "communities",
+                    ":communityId",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) The unique identifier of the Harbor community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"memberId\": \"<string>\",\n  \"rewardId\": \"<string>\",\n  \"shippingAddress\": {\n    \"name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"communityId\": \"string\",\n  \"memberId\": \"string\",\n  \"rewardId\": \"string\",\n  \"reward\": {\n    \"id\": \"string\",\n    \"communityId\": \"string\",\n    \"title\": \"string\",\n    \"description\": \"string\",\n    \"pointCost\": 7101,\n    \"type\": \"custom\",\n    \"status\": \"inactive\",\n    \"quantity\": 6252,\n    \"remainingQuantity\": 704,\n    \"imageUrl\": \"http://DgMRWGWIazBviKFUjSLJVkOCzHcQ.lzotAdR8u\"\n  },\n  \"pointsSpent\": 9091,\n  \"status\": \"approved\",\n  \"fulfillmentData\": {\n    \"key_0\": \"string\",\n    \"key_1\": 4386.82413686517\n  },\n  \"createdAt\": \"2016-02-08T16:52:23.154Z\",\n  \"updatedAt\": \"2017-11-28T09:00:47.619Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e344752e-8d85-4b13-ae84-de6ae97d78a2",
+              "name": "Insufficient points or reward unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "communities",
+                    ":communityId",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) The unique identifier of the Harbor community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"memberId\": \"<string>\",\n  \"rewardId\": \"<string>\",\n  \"shippingAddress\": {\n    \"name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a823509-6959-49c9-8381-65364b8c4c2b",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "communities",
+                    ":communityId",
+                    "redemptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) The unique identifier of the Harbor community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"memberId\": \"<string>\",\n  \"rewardId\": \"<string>\",\n  \"shippingAddress\": {\n    \"name\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.harbor.gg/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "03a77e09-60a0-4727-8580-998eccdddee2",
+    "name": "Harbor Challenges Redemptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their superfan community, rewards programs, and engagement features. Harbor is a no-code tool that lets brands build owned community platforms where superfans can engage and earn rewards. The API provides endpoints for managing members, challenges, rewards, redemptions, leaderboards, and community events. Authentication uses bearer tokens obtained via OAuth 2.0 client credentials.\n\nContact Support:\n Name: Harbor Support",
+      "type": "text/plain"
+    }
+  }
+}

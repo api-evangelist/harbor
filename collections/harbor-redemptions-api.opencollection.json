@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Harbor Challenges Redemptions API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Redemptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Harbor List redemptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/redemptions",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (1-based)."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by redemption status."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of reward redemption requests from community members. Can be filtered by status (pending, approved, fulfilled, rejected) for fulfillment workflow management."
+        },
+        {
+          "info": {
+            "name": "Harbor Create a redemption request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/redemptions",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a redemption request on behalf of a member for a specific reward from the catalog. Deducts the reward's point cost from the member's balance if they have sufficient points."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

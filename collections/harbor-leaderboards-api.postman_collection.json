@@ -1,0 +1,277 @@
+{
+  "item": [
+    {
+      "id": "434e81ca-12dc-413d-aef2-f9de362cbc07",
+      "name": "Leaderboards",
+      "description": {
+        "content": "Operations for retrieving leaderboard rankings of community members by points or other engagement metrics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a37cf5e0-6698-40e2-9872-270cfef5abec",
+          "name": "Harbor Get community leaderboard",
+          "request": {
+            "name": "Harbor Get community leaderboard",
+            "description": {
+              "content": "Returns the ranked leaderboard of community members sorted by total points earned. Supports optional time-window filtering for weekly or monthly leaderboards.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "communities",
+                ":communityId",
+                "leaderboard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of results per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "all_time",
+                  "description": "Time period for leaderboard calculation."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "communityId",
+                  "description": "(Required) The unique identifier of the Harbor community."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ceea943-6c5c-4738-9c76-0ac5cac12deb",
+              "name": "Leaderboard rankings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "communities",
+                    ":communityId",
+                    "leaderboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "period",
+                      "value": "all_time"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) The unique identifier of the Harbor community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"communityId\": \"string\",\n  \"period\": \"weekly\",\n  \"entries\": [\n    {\n      \"rank\": 6071,\n      \"memberId\": \"string\",\n      \"displayName\": \"string\",\n      \"points\": 7107,\n      \"tier\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"pointsRequired\": 8335,\n        \"benefits\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    },\n    {\n      \"rank\": 6123,\n      \"memberId\": \"string\",\n      \"displayName\": \"string\",\n      \"points\": 5396,\n      \"tier\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"pointsRequired\": 8636,\n        \"benefits\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    }\n  ],\n  \"generatedAt\": \"1975-07-08T05:31:15.022Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "730643c7-cc39-4e0d-85c4-b387d1f1f41b",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "communities",
+                    ":communityId",
+                    "leaderboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "period",
+                      "value": "all_time"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) The unique identifier of the Harbor community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dc30a942-ad90-483a-b25d-212d594d09c7",
+              "name": "Community not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "communities",
+                    ":communityId",
+                    "leaderboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "period",
+                      "value": "all_time"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "communityId",
+                      "description": "(Required) The unique identifier of the Harbor community."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.harbor.gg/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7f8e2b04-bdb4-43fd-8e06-ecd48bdb45b3",
+    "name": "Harbor Challenges Leaderboards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their superfan community, rewards programs, and engagement features. Harbor is a no-code tool that lets brands build owned community platforms where superfans can engage and earn rewards. The API provides endpoints for managing members, challenges, rewards, redemptions, leaderboards, and community events. Authentication uses bearer tokens obtained via OAuth 2.0 client credentials.\n\nContact Support:\n Name: Harbor Support",
+      "type": "text/plain"
+    }
+  }
+}

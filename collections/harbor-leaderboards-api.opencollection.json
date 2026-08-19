@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Harbor Challenges Leaderboards API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Leaderboards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Harbor Get community leaderboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/leaderboard",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Time period for leaderboard calculation."
+              }
+            ]
+          },
+          "docs": "Returns the ranked leaderboard of community members sorted by total points earned. Supports optional time-window filtering for weekly or monthly leaderboards."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

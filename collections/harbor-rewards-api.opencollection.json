@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Harbor Challenges Rewards API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rewards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Harbor List rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.harbor.gg/v1/communities/:communityId/rewards",
+            "params": [
+              {
+                "name": "communityId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Harbor community."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by reward availability status."
+              }
+            ]
+          },
+          "docs": "Returns the rewards catalog for the community, including reward names, point costs, availability status, and redemption limits. Members can redeem rewards using their earned points."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
