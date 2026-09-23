@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Harbor Challenges Rewards API
+  title: Harbor Rewards API
   description: The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their superfan community, rewards programs, and engagement features. Harbor is a no-code tool that lets brands build owned community platforms where superfans can engage and earn rewards. The API provides endpoints for managing members, challenges, rewards, redemptions, leaderboards, and community events. Authentication uses bearer tokens obtained via OAuth 2.0 client credentials.
   version: v1
   contact:
@@ -46,7 +46,27 @@ paths:
         '404':
           description: Community not found.
 components:
+  parameters:
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
   schemas:
+    RewardList:
+      type: object
+      description: List of community rewards.
+      properties:
+        data:
+          type: array
+          description: Array of reward objects.
+          items:
+            $ref: '#/components/schemas/Reward'
+        total:
+          type: integer
+          description: Total number of rewards.
     Reward:
       type: object
       description: A reward available for redemption in the community catalog.
@@ -93,26 +113,6 @@ components:
           type: string
           format: uri
           description: URL of the reward image.
-    RewardList:
-      type: object
-      description: List of community rewards.
-      properties:
-        data:
-          type: array
-          description: Array of reward objects.
-          items:
-            $ref: '#/components/schemas/Reward'
-        total:
-          type: integer
-          description: Total number of rewards.
-  parameters:
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

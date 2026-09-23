@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Harbor Challenges Redemptions API
+  title: Harbor Redemptions API
   description: The Harbor API enables programmatic access to the Harbor community platform, allowing brands to manage their superfan community, rewards programs, and engagement features. Harbor is a no-code tool that lets brands build owned community platforms where superfans can engage and earn rewards. The API provides endpoints for managing members, challenges, rewards, redemptions, leaderboards, and community events. Authentication uses bearer tokens obtained via OAuth 2.0 client credentials.
   version: v1
   contact:
@@ -72,50 +72,7 @@ paths:
         '401':
           description: Unauthorized.
 components:
-  parameters:
-    limitParam:
-      name: limit
-      in: query
-      description: Number of results per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-    pageParam:
-      name: page
-      in: query
-      description: Page number for pagination (1-based).
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
-      schema:
-        type: string
   schemas:
-    RedemptionList:
-      type: object
-      description: Paginated list of redemptions.
-      properties:
-        data:
-          type: array
-          description: Array of redemption objects.
-          items:
-            $ref: '#/components/schemas/Redemption'
-        total:
-          type: integer
-          description: Total number of redemptions.
-        page:
-          type: integer
-          description: Current page number.
-        limit:
-          type: integer
-          description: Results per page.
     CreateRedemptionRequest:
       type: object
       description: Request body for creating a reward redemption.
@@ -155,6 +112,65 @@ components:
               type: string
               description: ISO 3166-1 alpha-2 country code.
               pattern: ^[A-Z]{2}$
+    RedemptionList:
+      type: object
+      description: Paginated list of redemptions.
+      properties:
+        data:
+          type: array
+          description: Array of redemption objects.
+          items:
+            $ref: '#/components/schemas/Redemption'
+        total:
+          type: integer
+          description: Total number of redemptions.
+        page:
+          type: integer
+          description: Current page number.
+        limit:
+          type: integer
+          description: Results per page.
+    Redemption:
+      type: object
+      description: A reward redemption request from a community member.
+      properties:
+        id:
+          type: string
+          description: Unique redemption identifier.
+        communityId:
+          type: string
+          description: Community this redemption belongs to.
+        memberId:
+          type: string
+          description: Member who requested the redemption.
+        rewardId:
+          type: string
+          description: Reward being redeemed.
+        reward:
+          $ref: '#/components/schemas/Reward'
+        pointsSpent:
+          type: integer
+          description: Points deducted for this redemption.
+        status:
+          type: string
+          description: Current redemption status.
+          enum:
+          - pending
+          - approved
+          - fulfilled
+          - rejected
+        fulfillmentData:
+          type: object
+          description: Fulfillment data such as discount codes or shipping information.
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+          description: When the redemption was requested.
+        updatedAt:
+          type: string
+          format: date-time
+          description: When the redemption was last updated.
     Reward:
       type: object
       description: A reward available for redemption in the community catalog.
@@ -201,47 +217,31 @@ components:
           type: string
           format: uri
           description: URL of the reward image.
-    Redemption:
-      type: object
-      description: A reward redemption request from a community member.
-      properties:
-        id:
-          type: string
-          description: Unique redemption identifier.
-        communityId:
-          type: string
-          description: Community this redemption belongs to.
-        memberId:
-          type: string
-          description: Member who requested the redemption.
-        rewardId:
-          type: string
-          description: Reward being redeemed.
-        reward:
-          $ref: '#/components/schemas/Reward'
-        pointsSpent:
-          type: integer
-          description: Points deducted for this redemption.
-        status:
-          type: string
-          description: Current redemption status.
-          enum:
-          - pending
-          - approved
-          - fulfilled
-          - rejected
-        fulfillmentData:
-          type: object
-          description: Fulfillment data such as discount codes or shipping information.
-          additionalProperties: true
-        createdAt:
-          type: string
-          format: date-time
-          description: When the redemption was requested.
-        updatedAt:
-          type: string
-          format: date-time
-          description: When the redemption was last updated.
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Page number for pagination (1-based).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    limitParam:
+      name: limit
+      in: query
+      description: Number of results per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
