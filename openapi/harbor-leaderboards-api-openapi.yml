@@ -72,6 +72,24 @@ components:
           type: string
           format: date-time
           description: Timestamp when the leaderboard was last calculated.
+    Tier:
+      type: object
+      description: Loyalty tier a member has achieved.
+      properties:
+        id:
+          type: string
+          description: Tier identifier.
+        name:
+          type: string
+          description: Tier display name (e.g., Bronze, Silver, Gold).
+        pointsRequired:
+          type: integer
+          description: Minimum lifetime points required to reach this tier.
+        benefits:
+          type: array
+          description: List of benefits associated with this tier.
+          items:
+            type: string
     LeaderboardEntry:
       type: object
       description: A single entry in the community leaderboard.
@@ -92,25 +110,14 @@ components:
           minimum: 0
         tier:
           $ref: '#/components/schemas/Tier'
-    Tier:
-      type: object
-      description: Loyalty tier a member has achieved.
-      properties:
-        id:
-          type: string
-          description: Tier identifier.
-        name:
-          type: string
-          description: Tier display name (e.g., Bronze, Silver, Gold).
-        pointsRequired:
-          type: integer
-          description: Minimum lifetime points required to reach this tier.
-        benefits:
-          type: array
-          description: List of benefits associated with this tier.
-          items:
-            type: string
   parameters:
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
     limitParam:
       name: limit
       in: query
@@ -120,13 +127,6 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -61,6 +61,8 @@ apis:
   description: Operations for managing community configuration and settings.
   humanURL: https://api.harbor.gg/
   tags:
+  - Community
+  tags_raw:
   - Communities
   properties:
   - type: OpenAPI

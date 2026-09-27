@@ -159,64 +159,24 @@ paths:
           description: Member not found.
 components:
   schemas:
-    CreateMemberRequest:
+    Tier:
       type: object
-      description: Request body for registering a new community member.
-      required:
-      - externalId
+      description: Loyalty tier a member has achieved.
       properties:
-        externalId:
+        id:
           type: string
-          description: The brand's unique identifier for this user.
-        displayName:
+          description: Tier identifier.
+        name:
           type: string
-          description: Member's display name.
-          maxLength: 100
-        email:
-          type: string
-          format: email
-          description: Member's email address.
-        referralCode:
-          type: string
-          description: Referral code provided by an existing member.
-        metadata:
-          type: object
-          description: Optional additional metadata to store with the member.
-          additionalProperties: true
-    MemberList:
-      type: object
-      description: Paginated list of community members.
-      properties:
-        data:
+          description: Tier display name (e.g., Bronze, Silver, Gold).
+        pointsRequired:
+          type: integer
+          description: Minimum lifetime points required to reach this tier.
+        benefits:
           type: array
-          description: Array of member objects.
+          description: List of benefits associated with this tier.
           items:
-            $ref: '#/components/schemas/Member'
-        total:
-          type: integer
-          description: Total number of members matching the query.
-        page:
-          type: integer
-          description: Current page number.
-        limit:
-          type: integer
-          description: Results per page.
-    PointsBalance:
-      type: object
-      description: Updated points balance after a transaction.
-      properties:
-        memberId:
-          type: string
-          description: Member identifier.
-        pointsAwarded:
-          type: integer
-          description: Points awarded in this transaction.
-        newBalance:
-          type: integer
-          description: Member's new point balance after the award.
-        totalPointsEarned:
-          type: integer
-          description: Updated lifetime points total.
+            type: string
     AwardPointsRequest:
       type: object
       description: Request body for awarding points to a community member.
@@ -259,24 +219,64 @@ components:
           type: object
           description: Updated metadata key-value pairs.
           additionalProperties: true
-    Tier:
+    PointsBalance:
       type: object
-      description: Loyalty tier a member has achieved.
+      description: Updated points balance after a transaction.
       properties:
-        id:
+        memberId:
           type: string
-          description: Tier identifier.
-        name:
-          type: string
-          description: Tier display name (e.g., Bronze, Silver, Gold).
-        pointsRequired:
+          description: Member identifier.
+        pointsAwarded:
           type: integer
-          description: Minimum lifetime points required to reach this tier.
-        benefits:
+          description: Points awarded in this transaction.
+        newBalance:
+          type: integer
+          description: Member's new point balance after the award.
+        totalPointsEarned:
+          type: integer
+          description: Updated lifetime points total.
+    MemberList:
+      type: object
+      description: Paginated list of community members.
+      properties:
+        data:
           type: array
-          description: List of benefits associated with this tier.
+          description: Array of member objects.
           items:
-            type: string
+            $ref: '#/components/schemas/Member'
+        total:
+          type: integer
+          description: Total number of members matching the query.
+        page:
+          type: integer
+          description: Current page number.
+        limit:
+          type: integer
+          description: Results per page.
+    CreateMemberRequest:
+      type: object
+      description: Request body for registering a new community member.
+      required:
+      - externalId
+      properties:
+        externalId:
+          type: string
+          description: The brand's unique identifier for this user.
+        displayName:
+          type: string
+          description: Member's display name.
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          description: Member's email address.
+        referralCode:
+          type: string
+          description: Referral code provided by an existing member.
+        metadata:
+          type: object
+          description: Optional additional metadata to store with the member.
+          additionalProperties: true
     Member:
       type: object
       description: A community member representing a superfan registered on the Harbor platform.
@@ -326,14 +326,13 @@ components:
           format: date-time
           description: Timestamp of the member's last activity.
   parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Page number for pagination (1-based).
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
       schema:
-        type: integer
-        minimum: 1
-        default: 1
+        type: string
     limitParam:
       name: limit
       in: query
@@ -343,13 +342,6 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
-      schema:
-        type: string
     memberIdParam:
       name: memberId
       in: path
@@ -357,6 +349,14 @@ components:
       description: The unique identifier of the community member.
       schema:
         type: string
+    pageParam:
+      name: page
+      in: query
+      description: Page number for pagination (1-based).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
   securitySchemes:
     bearerAuth:
       type: http

@@ -100,99 +100,22 @@ paths:
         '404':
           description: Challenge or member not found.
 components:
+  parameters:
+    challengeIdParam:
+      name: challengeId
+      in: path
+      required: true
+      description: The unique identifier of the challenge.
+      schema:
+        type: string
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
   schemas:
-    ChallengeList:
-      type: object
-      description: List of community challenges.
-      properties:
-        data:
-          type: array
-          description: Array of challenge objects.
-          items:
-            $ref: '#/components/schemas/Challenge'
-        total:
-          type: integer
-          description: Total number of challenges.
-    CompleteChallengeRequest:
-      type: object
-      description: Request body for recording a challenge completion.
-      required:
-      - memberId
-      properties:
-        memberId:
-          type: string
-          description: Identifier of the member who completed the challenge.
-        proof:
-          type: object
-          description: Verification proof for challenges that require it.
-          additionalProperties: true
-        metadata:
-          type: object
-          description: Optional metadata about the completion.
-          additionalProperties: true
-    ChallengeCompletion:
-      type: object
-      description: Result of a challenge completion recording.
-      properties:
-        challengeId:
-          type: string
-          description: Challenge that was completed.
-        memberId:
-          type: string
-          description: Member who completed the challenge.
-        pointsAwarded:
-          type: integer
-          description: Points awarded for this completion.
-        newBalance:
-          type: integer
-          description: Member's updated point balance.
-        completedAt:
-          type: string
-          format: date-time
-          description: Timestamp of completion.
-    CreateChallengeRequest:
-      type: object
-      description: Request body for creating a new community challenge.
-      required:
-      - title
-      - points
-      - actionType
-      properties:
-        title:
-          type: string
-          description: Challenge title shown to members.
-          maxLength: 200
-        description:
-          type: string
-          description: Detailed challenge description.
-          maxLength: 2000
-        points:
-          type: integer
-          description: Points to award upon completion.
-          minimum: 1
-        actionType:
-          type: string
-          description: Type of action required.
-          enum:
-          - social_follow
-          - social_share
-          - purchase
-          - referral
-          - event_attendance
-          - content_submission
-          - custom
-        repeatable:
-          type: boolean
-          description: Whether the challenge can be completed multiple times.
-          default: false
-        startsAt:
-          type: string
-          format: date-time
-          description: Challenge start time.
-        endsAt:
-          type: string
-          format: date-time
-          description: Challenge end time.
     Challenge:
       type: object
       description: A challenge that community members can complete to earn points and rewards.
@@ -245,21 +168,98 @@ components:
           type: string
           format: date-time
           description: When the challenge expires. Null for no expiry.
-  parameters:
-    challengeIdParam:
-      name: challengeId
-      in: path
-      required: true
-      description: The unique identifier of the challenge.
-      schema:
-        type: string
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
-      schema:
-        type: string
+    CreateChallengeRequest:
+      type: object
+      description: Request body for creating a new community challenge.
+      required:
+      - title
+      - points
+      - actionType
+      properties:
+        title:
+          type: string
+          description: Challenge title shown to members.
+          maxLength: 200
+        description:
+          type: string
+          description: Detailed challenge description.
+          maxLength: 2000
+        points:
+          type: integer
+          description: Points to award upon completion.
+          minimum: 1
+        actionType:
+          type: string
+          description: Type of action required.
+          enum:
+          - social_follow
+          - social_share
+          - purchase
+          - referral
+          - event_attendance
+          - content_submission
+          - custom
+        repeatable:
+          type: boolean
+          description: Whether the challenge can be completed multiple times.
+          default: false
+        startsAt:
+          type: string
+          format: date-time
+          description: Challenge start time.
+        endsAt:
+          type: string
+          format: date-time
+          description: Challenge end time.
+    ChallengeCompletion:
+      type: object
+      description: Result of a challenge completion recording.
+      properties:
+        challengeId:
+          type: string
+          description: Challenge that was completed.
+        memberId:
+          type: string
+          description: Member who completed the challenge.
+        pointsAwarded:
+          type: integer
+          description: Points awarded for this completion.
+        newBalance:
+          type: integer
+          description: Member's updated point balance.
+        completedAt:
+          type: string
+          format: date-time
+          description: Timestamp of completion.
+    CompleteChallengeRequest:
+      type: object
+      description: Request body for recording a challenge completion.
+      required:
+      - memberId
+      properties:
+        memberId:
+          type: string
+          description: Identifier of the member who completed the challenge.
+        proof:
+          type: object
+          description: Verification proof for challenges that require it.
+          additionalProperties: true
+        metadata:
+          type: object
+          description: Optional metadata about the completion.
+          additionalProperties: true
+    ChallengeList:
+      type: object
+      description: List of community challenges.
+      properties:
+        data:
+          type: array
+          description: Array of challenge objects.
+          items:
+            $ref: '#/components/schemas/Challenge'
+        total:
+          type: integer
+          description: Total number of challenges.
   securitySchemes:
     bearerAuth:
       type: http

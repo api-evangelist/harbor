@@ -73,63 +73,6 @@ paths:
           description: Unauthorized.
 components:
   schemas:
-    CreateRedemptionRequest:
-      type: object
-      description: Request body for creating a reward redemption.
-      required:
-      - memberId
-      - rewardId
-      properties:
-        memberId:
-          type: string
-          description: Identifier of the member redeeming the reward.
-        rewardId:
-          type: string
-          description: Identifier of the reward to redeem.
-        shippingAddress:
-          type: object
-          description: Shipping address for physical reward redemptions.
-          properties:
-            name:
-              type: string
-              description: Recipient name.
-            line1:
-              type: string
-              description: Address line 1.
-            line2:
-              type: string
-              description: Address line 2.
-            city:
-              type: string
-              description: City.
-            state:
-              type: string
-              description: State or province.
-            postalCode:
-              type: string
-              description: Postal code.
-            country:
-              type: string
-              description: ISO 3166-1 alpha-2 country code.
-              pattern: ^[A-Z]{2}$
-    RedemptionList:
-      type: object
-      description: Paginated list of redemptions.
-      properties:
-        data:
-          type: array
-          description: Array of redemption objects.
-          items:
-            $ref: '#/components/schemas/Redemption'
-        total:
-          type: integer
-          description: Total number of redemptions.
-        page:
-          type: integer
-          description: Current page number.
-        limit:
-          type: integer
-          description: Results per page.
     Redemption:
       type: object
       description: A reward redemption request from a community member.
@@ -171,6 +114,24 @@ components:
           type: string
           format: date-time
           description: When the redemption was last updated.
+    RedemptionList:
+      type: object
+      description: Paginated list of redemptions.
+      properties:
+        data:
+          type: array
+          description: Array of redemption objects.
+          items:
+            $ref: '#/components/schemas/Redemption'
+        total:
+          type: integer
+          description: Total number of redemptions.
+        page:
+          type: integer
+          description: Current page number.
+        limit:
+          type: integer
+          description: Results per page.
     Reward:
       type: object
       description: A reward available for redemption in the community catalog.
@@ -217,15 +178,53 @@ components:
           type: string
           format: uri
           description: URL of the reward image.
+    CreateRedemptionRequest:
+      type: object
+      description: Request body for creating a reward redemption.
+      required:
+      - memberId
+      - rewardId
+      properties:
+        memberId:
+          type: string
+          description: Identifier of the member redeeming the reward.
+        rewardId:
+          type: string
+          description: Identifier of the reward to redeem.
+        shippingAddress:
+          type: object
+          description: Shipping address for physical reward redemptions.
+          properties:
+            name:
+              type: string
+              description: Recipient name.
+            line1:
+              type: string
+              description: Address line 1.
+            line2:
+              type: string
+              description: Address line 2.
+            city:
+              type: string
+              description: City.
+            state:
+              type: string
+              description: State or province.
+            postalCode:
+              type: string
+              description: Postal code.
+            country:
+              type: string
+              description: ISO 3166-1 alpha-2 country code.
+              pattern: ^[A-Z]{2}$
   parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Page number for pagination (1-based).
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
       schema:
-        type: integer
-        minimum: 1
-        default: 1
+        type: string
     limitParam:
       name: limit
       in: query
@@ -235,13 +234,14 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
+    pageParam:
+      name: page
+      in: query
+      description: Page number for pagination (1-based).
       schema:
-        type: string
+        type: integer
+        minimum: 1
+        default: 1
   securitySchemes:
     bearerAuth:
       type: http
