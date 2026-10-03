@@ -47,6 +47,18 @@ paths:
           description: Community not found.
 components:
   schemas:
+    RewardList:
+      type: object
+      description: List of community rewards.
+      properties:
+        data:
+          type: array
+          description: Array of reward objects.
+          items:
+            $ref: '#/components/schemas/Reward'
+        total:
+          type: integer
+          description: Total number of rewards.
     Reward:
       type: object
       description: A reward available for redemption in the community catalog.
@@ -93,18 +105,6 @@ components:
           type: string
           format: uri
           description: URL of the reward image.
-    RewardList:
-      type: object
-      description: List of community rewards.
-      properties:
-        data:
-          type: array
-          description: Array of reward objects.
-          items:
-            $ref: '#/components/schemas/Reward'
-        total:
-          type: integer
-          description: Total number of rewards.
   parameters:
     communityIdParam:
       name: communityId

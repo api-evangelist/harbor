@@ -49,6 +49,24 @@ paths:
           description: Community not found.
 components:
   schemas:
+    Tier:
+      type: object
+      description: Loyalty tier a member has achieved.
+      properties:
+        id:
+          type: string
+          description: Tier identifier.
+        name:
+          type: string
+          description: Tier display name (e.g., Bronze, Silver, Gold).
+        pointsRequired:
+          type: integer
+          description: Minimum lifetime points required to reach this tier.
+        benefits:
+          type: array
+          description: List of benefits associated with this tier.
+          items:
+            type: string
     Leaderboard:
       type: object
       description: Community leaderboard with ranked member entries.
@@ -72,24 +90,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the leaderboard was last calculated.
-    Tier:
-      type: object
-      description: Loyalty tier a member has achieved.
-      properties:
-        id:
-          type: string
-          description: Tier identifier.
-        name:
-          type: string
-          description: Tier display name (e.g., Bronze, Silver, Gold).
-        pointsRequired:
-          type: integer
-          description: Minimum lifetime points required to reach this tier.
-        benefits:
-          type: array
-          description: List of benefits associated with this tier.
-          items:
-            type: string
     LeaderboardEntry:
       type: object
       description: A single entry in the community leaderboard.
