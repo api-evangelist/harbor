@@ -49,6 +49,26 @@ paths:
           description: Community not found.
 components:
   schemas:
+    LeaderboardEntry:
+      type: object
+      description: A single entry in the community leaderboard.
+      properties:
+        rank:
+          type: integer
+          description: Member's current rank position on the leaderboard.
+          minimum: 1
+        memberId:
+          type: string
+          description: Member identifier.
+        displayName:
+          type: string
+          description: Member's display name.
+        points:
+          type: integer
+          description: Points total used for ranking.
+          minimum: 0
+        tier:
+          $ref: '#/components/schemas/Tier'
     Tier:
       type: object
       description: Loyalty tier a member has achieved.
@@ -90,26 +110,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the leaderboard was last calculated.
-    LeaderboardEntry:
-      type: object
-      description: A single entry in the community leaderboard.
-      properties:
-        rank:
-          type: integer
-          description: Member's current rank position on the leaderboard.
-          minimum: 1
-        memberId:
-          type: string
-          description: Member identifier.
-        displayName:
-          type: string
-          description: Member's display name.
-        points:
-          type: integer
-          description: Points total used for ranking.
-          minimum: 0
-        tier:
-          $ref: '#/components/schemas/Tier'
   parameters:
     communityIdParam:
       name: communityId

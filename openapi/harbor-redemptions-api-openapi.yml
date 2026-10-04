@@ -73,14 +73,6 @@ paths:
           description: Unauthorized.
 components:
   parameters:
-    pageParam:
-      name: page
-      in: query
-      description: Page number for pagination (1-based).
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     communityIdParam:
       name: communityId
       in: path
@@ -97,6 +89,14 @@ components:
         minimum: 1
         maximum: 100
         default: 20
+    pageParam:
+      name: page
+      in: query
+      description: Page number for pagination (1-based).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
   schemas:
     CreateRedemptionRequest:
       type: object
@@ -137,24 +137,6 @@ components:
               type: string
               description: ISO 3166-1 alpha-2 country code.
               pattern: ^[A-Z]{2}$
-    RedemptionList:
-      type: object
-      description: Paginated list of redemptions.
-      properties:
-        data:
-          type: array
-          description: Array of redemption objects.
-          items:
-            $ref: '#/components/schemas/Redemption'
-        total:
-          type: integer
-          description: Total number of redemptions.
-        page:
-          type: integer
-          description: Current page number.
-        limit:
-          type: integer
-          description: Results per page.
     Redemption:
       type: object
       description: A reward redemption request from a community member.
@@ -196,6 +178,24 @@ components:
           type: string
           format: date-time
           description: When the redemption was last updated.
+    RedemptionList:
+      type: object
+      description: Paginated list of redemptions.
+      properties:
+        data:
+          type: array
+          description: Array of redemption objects.
+          items:
+            $ref: '#/components/schemas/Redemption'
+        total:
+          type: integer
+          description: Total number of redemptions.
+        page:
+          type: integer
+          description: Current page number.
+        limit:
+          type: integer
+          description: Results per page.
     Reward:
       type: object
       description: A reward available for redemption in the community catalog.

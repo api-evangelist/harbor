@@ -100,6 +100,21 @@ paths:
         '404':
           description: Challenge or member not found.
 components:
+  parameters:
+    challengeIdParam:
+      name: challengeId
+      in: path
+      required: true
+      description: The unique identifier of the challenge.
+      schema:
+        type: string
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
   schemas:
     Challenge:
       type: object
@@ -165,6 +180,23 @@ components:
         total:
           type: integer
           description: Total number of challenges.
+    CompleteChallengeRequest:
+      type: object
+      description: Request body for recording a challenge completion.
+      required:
+      - memberId
+      properties:
+        memberId:
+          type: string
+          description: Identifier of the member who completed the challenge.
+        proof:
+          type: object
+          description: Verification proof for challenges that require it.
+          additionalProperties: true
+        metadata:
+          type: object
+          description: Optional metadata about the completion.
+          additionalProperties: true
     ChallengeCompletion:
       type: object
       description: Result of a challenge completion recording.
@@ -185,23 +217,6 @@ components:
           type: string
           format: date-time
           description: Timestamp of completion.
-    CompleteChallengeRequest:
-      type: object
-      description: Request body for recording a challenge completion.
-      required:
-      - memberId
-      properties:
-        memberId:
-          type: string
-          description: Identifier of the member who completed the challenge.
-        proof:
-          type: object
-          description: Verification proof for challenges that require it.
-          additionalProperties: true
-        metadata:
-          type: object
-          description: Optional metadata about the completion.
-          additionalProperties: true
     CreateChallengeRequest:
       type: object
       description: Request body for creating a new community challenge.
@@ -245,21 +260,6 @@ components:
           type: string
           format: date-time
           description: Challenge end time.
-  parameters:
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
-      schema:
-        type: string
-    challengeIdParam:
-      name: challengeId
-      in: path
-      required: true
-      description: The unique identifier of the challenge.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

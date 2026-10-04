@@ -37,25 +37,15 @@ paths:
         '404':
           description: Community not found.
 components:
+  parameters:
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
   schemas:
-    Tier:
-      type: object
-      description: Loyalty tier a member has achieved.
-      properties:
-        id:
-          type: string
-          description: Tier identifier.
-        name:
-          type: string
-          description: Tier display name (e.g., Bronze, Silver, Gold).
-        pointsRequired:
-          type: integer
-          description: Minimum lifetime points required to reach this tier.
-        benefits:
-          type: array
-          description: List of benefits associated with this tier.
-          items:
-            type: string
     Community:
       type: object
       description: A Harbor community platform configuration.
@@ -93,14 +83,24 @@ components:
           type: string
           format: date-time
           description: When the community was created.
-  parameters:
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
-      schema:
-        type: string
+    Tier:
+      type: object
+      description: Loyalty tier a member has achieved.
+      properties:
+        id:
+          type: string
+          description: Tier identifier.
+        name:
+          type: string
+          description: Tier display name (e.g., Bronze, Silver, Gold).
+        pointsRequired:
+          type: integer
+          description: Minimum lifetime points required to reach this tier.
+        benefits:
+          type: array
+          description: List of benefits associated with this tier.
+          items:
+            type: string
   securitySchemes:
     bearerAuth:
       type: http
