@@ -1,0 +1,43 @@
+slug: harbor
+provider: Harbor
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Redemptions
+  spec_file: harbor-redemptions-api-openapi.yml
+  capability_id: BC-420.40
+  capability_id_l1: BC-420
+  capability_name: Loyalty & Retention Management
+  confidence: 0.78
+  evidence: POST /communities/{communityId}/redemptions createRedemption "Create a redemption request";
+    schemas Redemption, Reward
+  reason: Redeeming earned points for rewards is a core loyalty programme operation.
+- tag: Challenges
+  spec_file: harbor-challenges-api-openapi.yml
+  capability_id: BC-420.40
+  capability_id_l1: BC-420
+  capability_name: Loyalty & Retention Management
+  confidence: 0.72
+  evidence: 'POST /communities/{communityId}/challenges/{challengeId}/complete "Mark a challenge as completed
+    by a member"; vendor: "superfans can engage with the brand and earn rewards"'
+  reason: Challenges are gamified engagement mechanics through which community members earn rewards —
+    a loyalty/engagement programme construct rather than a technical object.
+- tag: Rewards
+  spec_file: harbor-rewards-api-openapi.yml
+  capability_id: BC-420.40
+  capability_id_l1: BC-420
+  capability_name: Loyalty & Retention Management
+  confidence: 0.72
+  evidence: GET /communities/{communityId}/rewards listRewards "List rewards"; schemas RewardList, Reward
+  reason: Reward catalogue for the brand community programme, i.e. loyalty programme definition; single
+    read operation keeps confidence moderate.
