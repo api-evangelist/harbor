@@ -1,0 +1,12 @@
+fetched: '2026-10-13'
+method: fetched
+source: https://raw.githubusercontent.com/goharbor/harbor/main/README.md
+page: https://raw.githubusercontent.com/goharbor/harbor/main/README.md
+file: harbor-oci-distribution-1.md
+bytes: 10758
+sha256: eb44e8874e22d249ca83943f8a90c30b9985bd9ec2a040cd391aff2fc6d30ee1
+anchor: open-container-initiative
+shape: oci-distribution
+classification: declares-compatibility
+quote: '![OCI Distribution Conformance Tests](https://github.com/goharbor/harbor/workflows/CONFORMANCE_TEST/badge.svg)'
+note: text extracted from the provider's own page (tags stripped), saved for evidence

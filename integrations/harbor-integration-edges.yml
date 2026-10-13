@@ -1,0 +1,18 @@
+edges:
+- partner_name: Open Container Initiative
+  partner: open-container-initiative
+  partner_match: shape-anchor
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  shape: oci-distribution
+  type: docs
+  degree: full
+  evidence: https://raw.githubusercontent.com/goharbor/harbor/main/README.md
+  evidence_kind: own-docs
+  evidence_file: https://github.com/api-evangelist/harbor/blob/main/evidence/compatibility/harbor-oci-distribution-1.md
+  quote: '![OCI Distribution Conformance Tests](https://github.com/goharbor/harbor/workflows/CONFORMANCE_TEST/badge.svg)'
+  detected_by: sweep-shape-compat.py
+  first_seen: '2026-10-13'
+generated: '2026-10-13'
+method: searched
