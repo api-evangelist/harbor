@@ -48,7 +48,47 @@ paths:
         '404':
           description: Community not found.
 components:
+  parameters:
+    limitParam:
+      name: limit
+      in: query
+      description: Number of results per page.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
   schemas:
+    Leaderboard:
+      type: object
+      description: Community leaderboard with ranked member entries.
+      properties:
+        communityId:
+          type: string
+          description: Community identifier.
+        period:
+          type: string
+          description: Time period this leaderboard covers.
+          enum:
+          - all_time
+          - monthly
+          - weekly
+        entries:
+          type: array
+          description: Ranked list of member entries.
+          items:
+            $ref: '#/components/schemas/LeaderboardEntry'
+        generatedAt:
+          type: string
+          format: date-time
+          description: Timestamp when the leaderboard was last calculated.
     LeaderboardEntry:
       type: object
       description: A single entry in the community leaderboard.
@@ -87,46 +127,6 @@ components:
           description: List of benefits associated with this tier.
           items:
             type: string
-    Leaderboard:
-      type: object
-      description: Community leaderboard with ranked member entries.
-      properties:
-        communityId:
-          type: string
-          description: Community identifier.
-        period:
-          type: string
-          description: Time period this leaderboard covers.
-          enum:
-          - all_time
-          - monthly
-          - weekly
-        entries:
-          type: array
-          description: Ranked list of member entries.
-          items:
-            $ref: '#/components/schemas/LeaderboardEntry'
-        generatedAt:
-          type: string
-          format: date-time
-          description: Timestamp when the leaderboard was last calculated.
-  parameters:
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
-      schema:
-        type: string
-    limitParam:
-      name: limit
-      in: query
-      description: Number of results per page.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
   securitySchemes:
     bearerAuth:
       type: http

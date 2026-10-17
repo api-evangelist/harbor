@@ -100,22 +100,62 @@ paths:
         '404':
           description: Challenge or member not found.
 components:
-  parameters:
-    challengeIdParam:
-      name: challengeId
-      in: path
-      required: true
-      description: The unique identifier of the challenge.
-      schema:
-        type: string
-    communityIdParam:
-      name: communityId
-      in: path
-      required: true
-      description: The unique identifier of the Harbor community.
-      schema:
-        type: string
   schemas:
+    CreateChallengeRequest:
+      type: object
+      description: Request body for creating a new community challenge.
+      required:
+      - title
+      - points
+      - actionType
+      properties:
+        title:
+          type: string
+          description: Challenge title shown to members.
+          maxLength: 200
+        description:
+          type: string
+          description: Detailed challenge description.
+          maxLength: 2000
+        points:
+          type: integer
+          description: Points to award upon completion.
+          minimum: 1
+        actionType:
+          type: string
+          description: Type of action required.
+          enum:
+          - social_follow
+          - social_share
+          - purchase
+          - referral
+          - event_attendance
+          - content_submission
+          - custom
+        repeatable:
+          type: boolean
+          description: Whether the challenge can be completed multiple times.
+          default: false
+        startsAt:
+          type: string
+          format: date-time
+          description: Challenge start time.
+        endsAt:
+          type: string
+          format: date-time
+          description: Challenge end time.
+    ChallengeList:
+      type: object
+      description: List of community challenges.
+      properties:
+        data:
+          type: array
+          description: Array of challenge objects.
+          items:
+            $ref: '#/components/schemas/Challenge'
+        total:
+          type: integer
+          description: Total number of challenges.
     Challenge:
       type: object
       description: A challenge that community members can complete to earn points and rewards.
@@ -168,18 +208,6 @@ components:
           type: string
           format: date-time
           description: When the challenge expires. Null for no expiry.
-    ChallengeList:
-      type: object
-      description: List of community challenges.
-      properties:
-        data:
-          type: array
-          description: Array of challenge objects.
-          items:
-            $ref: '#/components/schemas/Challenge'
-        total:
-          type: integer
-          description: Total number of challenges.
     CompleteChallengeRequest:
       type: object
       description: Request body for recording a challenge completion.
@@ -217,49 +245,21 @@ components:
           type: string
           format: date-time
           description: Timestamp of completion.
-    CreateChallengeRequest:
-      type: object
-      description: Request body for creating a new community challenge.
-      required:
-      - title
-      - points
-      - actionType
-      properties:
-        title:
-          type: string
-          description: Challenge title shown to members.
-          maxLength: 200
-        description:
-          type: string
-          description: Detailed challenge description.
-          maxLength: 2000
-        points:
-          type: integer
-          description: Points to award upon completion.
-          minimum: 1
-        actionType:
-          type: string
-          description: Type of action required.
-          enum:
-          - social_follow
-          - social_share
-          - purchase
-          - referral
-          - event_attendance
-          - content_submission
-          - custom
-        repeatable:
-          type: boolean
-          description: Whether the challenge can be completed multiple times.
-          default: false
-        startsAt:
-          type: string
-          format: date-time
-          description: Challenge start time.
-        endsAt:
-          type: string
-          format: date-time
-          description: Challenge end time.
+  parameters:
+    communityIdParam:
+      name: communityId
+      in: path
+      required: true
+      description: The unique identifier of the Harbor community.
+      schema:
+        type: string
+    challengeIdParam:
+      name: challengeId
+      in: path
+      required: true
+      description: The unique identifier of the challenge.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
